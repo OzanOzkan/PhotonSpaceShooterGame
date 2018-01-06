@@ -1,0 +1,10 @@
+<AssetMetadata version="0" type="Texture" guid="8dd5aea0-a5d5-44eb-a34c-13a5d6895706" source="sf_corvette-f3_specular.tif">
+ <Files>
+  <File path="sf_corvette-f3_specular.dds"/>
+ </Files>
+ <Details>
+  <Detail name="width">2048</Detail>
+  <Detail name="height">2048</Detail>
+  <Detail name="mipCount">10</Detail>
+ </Details>
+</AssetMetadata>

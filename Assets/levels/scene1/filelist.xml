@@ -1,0 +1,6 @@
+<download name="scene1" type="Map">
+ <index src="filelist.xml" dest="filelist.xml"/>
+ <files>
+  <file src="level.pak" dest="level.pak" size="4531" md5="bca0102eea965dd10e354a30a138154c"/>
+ </files>
+</download>

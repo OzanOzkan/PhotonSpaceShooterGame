@@ -1,0 +1,9 @@
+<AssetMetadata version="0" type="Material" guid="da3172a7-d089-8dce-397b-a0e5c90c7856">
+ <Files>
+  <File path="bullet.mtl"/>
+ </Files>
+ <Details>
+  <Detail name="subMaterialCount">0</Detail>
+  <Detail name="textureCount">0</Detail>
+ </Details>
+</AssetMetadata>

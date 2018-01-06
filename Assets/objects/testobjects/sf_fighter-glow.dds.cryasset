@@ -1,0 +1,10 @@
+<AssetMetadata version="0" type="Texture" guid="e49f7d29-9ab9-63f4-833a-8180ef343d8e" source="sf_fighter-glow.tif">
+ <Files>
+  <File path="sf_fighter-glow.dds"/>
+ </Files>
+ <Details>
+  <Detail name="width">2048</Detail>
+  <Detail name="height">2048</Detail>
+  <Detail name="mipCount">10</Detail>
+ </Details>
+</AssetMetadata>

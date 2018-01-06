@@ -1,0 +1,14 @@
+<AssetMetadata version="0" type="Mesh" guid="6d581932-8cd9-8eb1-7958-cf768265c23d" source="spacefighter_LOD0.obj">
+ <Files>
+  <File path="test.cgf"/>
+ </Files>
+ <Details>
+  <Detail name="materialCount">2</Detail>
+  <Detail name="triangleCount">8246</Detail>
+  <Detail name="vertexCount">7065</Detail>
+  <Detail name="16BitPrecision">false</Detail>
+ </Details>
+ <Dependencies>
+  <Path>%ENGINE%/EngineAssets/Materials/material_default.mtl</Path>
+ </Dependencies>
+</AssetMetadata>

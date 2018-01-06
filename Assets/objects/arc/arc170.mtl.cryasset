@@ -1,0 +1,13 @@
+<AssetMetadata version="0" type="Material" guid="0aef0e6c-bde2-1705-6777-6b57f0fe836f">
+ <Files>
+  <File path="arc170.mtl"/>
+ </Files>
+ <Details>
+  <Detail name="subMaterialCount">2</Detail>
+  <Detail name="textureCount">2</Detail>
+ </Details>
+ <Dependencies>
+  <Path>./ARC170_TXT_VERSION_4_D.dds</Path>
+  <Path>./ARC170_TXT_VERSION_4_D_normal.dds</Path>
+ </Dependencies>
+</AssetMetadata>

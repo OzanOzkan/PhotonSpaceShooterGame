@@ -1,0 +1,14 @@
+<AssetMetadata version="0" type="Mesh" guid="87b65cea-aee2-0587-82c0-a6cdce8fdb6c" source="ARC170.FBX">
+ <Files>
+  <File path="ARC170.cgf"/>
+ </Files>
+ <Details>
+  <Detail name="materialCount">3</Detail>
+  <Detail name="triangleCount">51701</Detail>
+  <Detail name="vertexCount">63888</Detail>
+  <Detail name="16BitPrecision">false</Detail>
+ </Details>
+ <Dependencies>
+  <Path>./ARC170.mtl</Path>
+ </Dependencies>
+</AssetMetadata>

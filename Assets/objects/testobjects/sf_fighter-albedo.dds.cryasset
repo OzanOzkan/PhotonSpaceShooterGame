@@ -1,0 +1,10 @@
+<AssetMetadata version="0" type="Texture" guid="6a4ace2b-5d9f-a53e-e93b-8209506fccfd" source="sf_fighter-albedo.tif">
+ <Files>
+  <File path="sf_fighter-albedo.dds"/>
+ </Files>
+ <Details>
+  <Detail name="width">2048</Detail>
+  <Detail name="height">2048</Detail>
+  <Detail name="mipCount">10</Detail>
+ </Details>
+</AssetMetadata>

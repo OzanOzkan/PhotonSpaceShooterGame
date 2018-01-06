@@ -1,0 +1,10 @@
+<AssetMetadata version="0" type="Texture" guid="d0e90303-ae5b-e0ef-80b7-1bc48b184971" source="sf_corvette-f3_normal.tif">
+ <Files>
+  <File path="sf_corvette-f3_normal.dds"/>
+ </Files>
+ <Details>
+  <Detail name="width">2048</Detail>
+  <Detail name="height">2048</Detail>
+  <Detail name="mipCount">10</Detail>
+ </Details>
+</AssetMetadata>

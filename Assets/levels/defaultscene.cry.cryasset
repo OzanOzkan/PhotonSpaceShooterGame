@@ -1,0 +1,25 @@
+<AssetMetadata version="0" type="Level" guid="99348b16-d021-70e4-a93a-0d0913b59233" source="">
+ <Files>
+  <File path="defaultscene/defaultscene.cry"/>
+ </Files>
+ <Dependencies>
+  <Path>%editor%/crydesigner_timeofday.xml</Path>
+  <Path>%editor%/default_time_of_day.xml</Path>
+  <Path>%editor%/leveltemplates.xml</Path>
+  <Path>%editor%/mapscreenshotsettings.xml</Path>
+  <Path>%editor%/mbttemplates.xml</Path>
+  <Path>%editor%/modellingpanel.xml</Path>
+  <Path>%editor%/objecttemplates.xml</Path>
+  <Path>%editor%/propertyenumerations.xml</Path>
+  <Path>%editor%/soundtemplates.xml</Path>
+  <Path>%editor%/toolbox.xml</Path>
+  <Path>%editor%/usertools.xml</Path>
+  <Path>%engine%/config/defaultscripts/compressionpolicy.xml</Path>
+  <Path>%engine%/engineassets/icons/averagememoryusage.dds</Path>
+  <Path>%engine%/engineassets/icons/highmemoryusage.dds</Path>
+  <Path>%engine%/engineassets/icons/livepreview.dds</Path>
+  <Path>%engine%/engineassets/icons/lowmemoryusage.dds</Path>
+  <Path>%engine%/engineassets/textures/grey.dds</Path>
+  <Path>objects/arc/arc170.cgf</Path>
+ </Dependencies>
+</AssetMetadata>

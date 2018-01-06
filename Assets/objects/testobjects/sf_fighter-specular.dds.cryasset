@@ -1,0 +1,10 @@
+<AssetMetadata version="0" type="Texture" guid="84a476e0-fdf9-3edf-ad79-7522b3db56c0" source="sf_fighter-specular.tif">
+ <Files>
+  <File path="sf_fighter-specular.dds"/>
+ </Files>
+ <Details>
+  <Detail name="width">2048</Detail>
+  <Detail name="height">2048</Detail>
+  <Detail name="mipCount">10</Detail>
+ </Details>
+</AssetMetadata>

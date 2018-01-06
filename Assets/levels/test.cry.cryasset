@@ -1,0 +1,18 @@
+<AssetMetadata version="0" type="Level" guid="6c7b6415-5444-78ec-2d57-5dc27bcfce79" source="">
+ <Files>
+  <File path="test/test.cry"/>
+ </Files>
+ <Dependencies>
+  <Path>%engine%/config/defaultscripts/compressionpolicy.xml</Path>
+  <Path>%engine%/engineassets/codecoverage/hit.dds</Path>
+  <Path>%engine%/engineassets/codecoverage/pbar.dds</Path>
+  <Path>%engine%/engineassets/codecoverage/unexpected.dds</Path>
+  <Path>%engine%/engineassets/icons/averagememoryusage.dds</Path>
+  <Path>%engine%/engineassets/icons/highmemoryusage.dds</Path>
+  <Path>%engine%/engineassets/icons/livepreview.dds</Path>
+  <Path>%engine%/engineassets/icons/lowmemoryusage.dds</Path>
+  <Path>%engine%/engineassets/textures/grey.dds</Path>
+  <Path>libs/environmentpresets/test.xml</Path>
+  <Path>objects/arc/arc170.cgf</Path>
+ </Dependencies>
+</AssetMetadata>

@@ -1,0 +1,14 @@
+<AssetMetadata version="0" type="Mesh" guid="e839b795-e6bb-85a0-96b2-c699e5e9b61a" source="SF_Free-Fighter.FBX">
+ <Files>
+  <File path="SF_Free-Fighter.cgf"/>
+ </Files>
+ <Details>
+  <Detail name="materialCount">2</Detail>
+  <Detail name="triangleCount">2568</Detail>
+  <Detail name="vertexCount">4442</Detail>
+  <Detail name="16BitPrecision">false</Detail>
+ </Details>
+ <Dependencies>
+  <Path>./SF_Free-Fighter.mtl</Path>
+ </Dependencies>
+</AssetMetadata>

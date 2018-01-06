@@ -1,0 +1,10 @@
+<AssetMetadata version="0" type="Texture" guid="9f230bc5-f078-8146-819b-7e7969ae14fa" source="spacefighter_spacefightermain_albedotransparency.tif">
+ <Files>
+  <File path="spacefighter_spacefightermain_albedotransparency.dds"/>
+ </Files>
+ <Details>
+  <Detail name="width">4096</Detail>
+  <Detail name="height">4096</Detail>
+  <Detail name="mipCount">11</Detail>
+ </Details>
+</AssetMetadata>

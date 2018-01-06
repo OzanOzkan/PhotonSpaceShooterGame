@@ -1,0 +1,10 @@
+<AssetMetadata version="0" type="Texture" guid="20b6ff60-c4db-d02b-e29f-63ec5df97064" source="environmentprobe-1_cm.tif">
+ <Files>
+  <File path="environmentprobe-1_cm_diff.dds"/>
+ </Files>
+ <Details>
+  <Detail name="width">192</Detail>
+  <Detail name="height">32</Detail>
+  <Detail name="mipCount">1</Detail>
+ </Details>
+</AssetMetadata>

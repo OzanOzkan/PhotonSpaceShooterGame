@@ -1,0 +1,14 @@
+<AssetMetadata version="0" type="Material" guid="a436214f-6a87-ac1b-8ce8-ab14179e97d0">
+ <Files>
+  <File path="sf_free-fighter.mtl"/>
+ </Files>
+ <Details>
+  <Detail name="subMaterialCount">0</Detail>
+  <Detail name="textureCount">3</Detail>
+ </Details>
+ <Dependencies>
+  <Path>./SF_Fighter-Albedo.dds</Path>
+  <Path>./SF_Fighter-Normal.dds</Path>
+  <Path>./SF_Fighter-Specular.dds</Path>
+ </Dependencies>
+</AssetMetadata>

@@ -1,0 +1,14 @@
+<AssetMetadata version="0" type="Mesh" guid="e0a890de-b082-f364-cad7-d01d255775f0" source="SF_Corvette-F3.FBX">
+ <Files>
+  <File path="SF_Corvette-F3.cgf"/>
+ </Files>
+ <Details>
+  <Detail name="materialCount">2</Detail>
+  <Detail name="triangleCount">5936</Detail>
+  <Detail name="vertexCount">10054</Detail>
+  <Detail name="16BitPrecision">false</Detail>
+ </Details>
+ <Dependencies>
+  <Path>./SF_Corvette-F3.mtl</Path>
+ </Dependencies>
+</AssetMetadata>

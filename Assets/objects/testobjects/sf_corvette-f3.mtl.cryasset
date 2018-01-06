@@ -1,0 +1,13 @@
+<AssetMetadata version="0" type="Material" guid="d56b0239-b9d9-5cc3-9bfe-c212d263a8e3">
+ <Files>
+  <File path="sf_corvette-f3.mtl"/>
+ </Files>
+ <Details>
+  <Detail name="subMaterialCount">0</Detail>
+  <Detail name="textureCount">2</Detail>
+ </Details>
+ <Dependencies>
+  <Path>./SF_Corvette-F3_diffuse.dds</Path>
+  <Path>./SF_Corvette-F3_bump.dds</Path>
+ </Dependencies>
+</AssetMetadata>
