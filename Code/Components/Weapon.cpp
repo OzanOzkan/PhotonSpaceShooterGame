@@ -45,7 +45,7 @@ void CWeapon::Fire()
 		SEntitySpawnParams sBulletSpawnParams;
 		sBulletSpawnParams.pClass = gEnv->pEntitySystem->GetClassRegistry()->GetDefaultClass();
 		sBulletSpawnParams.vPosition = GetWorldTransformMatrix().GetColumn3();
-		sBulletSpawnParams.qRotation = IDENTITY;
+		sBulletSpawnParams.qRotation = GetEntity()->GetWorldRotation();
 
 		IEntity* pSpawnedBullet = gEnv->pEntitySystem->SpawnEntity(sBulletSpawnParams);
 		pSpawnedBullet->GetOrCreateComponentClass<CBullet>();
