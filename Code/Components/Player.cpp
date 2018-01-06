@@ -115,11 +115,11 @@ void CPlayerComponent::ProcessEvent(SEntityEvent& event)
 
 		m_mouseDeltaRotation = ZERO;
 
-		Matrix34 a = m_pShip->GetEntity()->GetWorldTM() * cameraTM;
-		Vec3 pos = GetEntity()->GetPos();
-		Interpolate(pos, a.GetTranslation(), 5.f, pCtx->fFrameTime);
-		a.SetTranslation(pos);
-		GetEntity()->SetWorldTM(a);
+		Matrix34 cameraMatrix = m_pShip->GetEntity()->GetWorldTM() * cameraTM;
+		Vec3 cameraPos = GetEntity()->GetPos();
+		Interpolate(cameraPos, cameraMatrix.GetTranslation(), 5.f, pCtx->fFrameTime);
+		cameraMatrix.SetTranslation(cameraPos);
+		GetEntity()->SetWorldTM(cameraMatrix);
 	
 	}
 	break;

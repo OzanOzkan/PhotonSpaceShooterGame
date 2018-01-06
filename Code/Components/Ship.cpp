@@ -118,18 +118,13 @@ void CPlayerShip::setRotationWithMouseInput(const float &mouseRotationX, const f
 	Ang3 angle = Ang3(DEG2RAD(mouseRotationY), DEG2RAD(-mouseRotationX), 0);
 
 	Matrix34 tm = GetEntity()->GetWorldTM();
-	Matrix33 rot;
-	tm.GetRotation33(rot);
-
-	Matrix33 angrot = Matrix33::CreateRotationXYZ(angle);
-	rot *= angrot;
-
-	tm.SetRotation33(rot);
+	Matrix34 angrot = Matrix34::CreateRotationXYZ(angle);
+	tm = tm * angrot;
 	GetEntity()->SetWorldTM(tm);
 }
 
 void CPlayerShip::setPositionWithInput()
 {
 	Vec3 forwardDir = GetEntity()->GetForwardDir();
-	GetEntity()->SetPos(GetEntity()->GetPos() + (forwardDir * 0.25f));
+	GetEntity()->SetPos(GetEntity()->GetPos() + (forwardDir * 0.50f));
 }

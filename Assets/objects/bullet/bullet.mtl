@@ -1,4 +1,4 @@
-<Material MtlFlags="524320" Shader="Illum" GenMask="80000001" StringGenMask="%ALLOW_SILHOUETTE_POM%SUBSURFACE_SCATTERING" SurfaceType="mat_metal" MatTemplate="" Diffuse="0.080219828,0,0" Specular="0,0,0" Emittance="0.24620135,0,0,0" Opacity="0.68000001" Shininess="61" CloakAmount="0" vertModifType="0" LayerAct="1">
+<Material MtlFlags="524322" Shader="Illum" GenMask="80000001" StringGenMask="%ALLOW_SILHOUETTE_POM%SUBSURFACE_SCATTERING" SurfaceType="mat_metal" MatTemplate="" Diffuse="0.038204376,0,0" Specular="0.11953845,0,0" Emittance="0.60382748,0,0,1000" Opacity="0.56999999" Shininess="255" CloakAmount="0" vertModifType="0" LayerAct="1">
  <Textures />
  <PublicParams EmittanceMapGamma="1" SSSIndex="0"/>
  <MaterialLayers>

@@ -62,5 +62,5 @@ void CWeapon::FrameUpdate()
 
 
 	//Debug
-	gEnv->pRenderer->GetIRenderAuxGeom()->DrawSphere(GetWorldTransformMatrix().GetColumn3(), 0.5f, Col_Red);
+	//gEnv->pRenderer->GetIRenderAuxGeom()->DrawSphere(GetWorldTransformMatrix().GetColumn3(), 0.5f, Col_Red);
 }

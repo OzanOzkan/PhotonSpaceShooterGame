@@ -8,15 +8,25 @@
 // Called on entity creation time
 void CBullet::Initialize()
 {
-	GetEntity()->LoadGeometry(GetOrMakeEntitySlotId(), "objects/sphere.cgf");
+	// Static mesh component
+	m_pStaticMeshComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CStaticMeshComponent>();
+	m_pStaticMeshComponent->SetFilePath("objects/bullet/bullet.cgf");
+
+	Cry::DefaultComponents::SPhysicsParameters &physParams = m_pStaticMeshComponent->GetPhysicsParameters();
+	physParams.m_mass = 0;
+
+	m_pStaticMeshComponent->LoadFromDisk();
+	m_pStaticMeshComponent->ResetObject();
+	// ~Static mesh component
+
 	IMaterial* pMaterial = gEnv->p3DEngine->GetMaterialManager()->LoadMaterial("objects/bullet/bullet");
 	GetEntity()->SetMaterial(pMaterial);
 
-	SEntityPhysicalizeParams sPhysicsParams;
-	sPhysicsParams.type = PE_RIGID;
-	sPhysicsParams.mass = 0.f;
-	
-	GetEntity()->Physicalize(sPhysicsParams);
+	//SEntityPhysicalizeParams sPhysicsParams;
+	//sPhysicsParams.type = PE_RIGID;
+	//sPhysicsParams.mass = 0.f;
+	//
+	//GetEntity()->Physicalize(sPhysicsParams);
 
 	GetEntity()->PrePhysicsActivate(true);
 }
@@ -54,7 +64,7 @@ void CBullet::FrameUpdate()
 	}
 
 	//Debug
-	gEnv->pRenderer->GetIRenderAuxGeom()->DrawSphere(GetWorldTransformMatrix().GetColumn3(), 0.5f, Col_Red);
+	//gEnv->pRenderer->GetIRenderAuxGeom()->DrawSphere(GetWorldTransformMatrix().GetColumn3(), 0.5f, Col_Red);
 }
 
 void CBullet::OnCollision(EventPhysCollision *pCollision)

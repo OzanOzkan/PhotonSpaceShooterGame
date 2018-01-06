@@ -3,6 +3,7 @@
 #include "GamePlugin.h"
 #include <CryEntitySystem/IEntityComponent.h>
 #include <CryEntitySystem/IEntitySystem.h>
+#include <DefaultComponents/Geometry/StaticMeshComponent.h>
 
 class CBullet : public IEntityComponent
 {
@@ -26,5 +27,7 @@ private:
 	void OnCollision(EventPhysCollision *pCollision);
 
 private:
+	Cry::DefaultComponents::CStaticMeshComponent* m_pStaticMeshComponent = nullptr;
+
 	float m_DestroyTimer;
 };
