@@ -50,7 +50,7 @@ Vec3 IShip::getVelocity()
 
 void CPlayerShip::InitShip()
 {
-	// Load the ship model.
+	// Loading the ship model
 	//m_pStaticMeshComponent->SetFilePath("objects/testobjects/SF_Free-Fighter.cgf");
 	m_pStaticMeshComponent->SetFilePath("objects/arc/ARC170.cgf");
 
@@ -59,13 +59,20 @@ void CPlayerShip::InitShip()
 
 	m_pStaticMeshComponent->LoadFromDisk();
 	m_pStaticMeshComponent->ResetObject();
+	// ~Loading the ship model
 
-
+	// Box primitive component
 	m_pBoxPrimitiveComponent->m_size = Vec3(0.6f, 0.8f, 0.3f);
 	Matrix34 boxComponentTM = m_pBoxPrimitiveComponent->GetTransformMatrix();
 	boxComponentTM.SetColumn(3, Vec3(0, 0, -0.3));
 	m_pBoxPrimitiveComponent->SetTransformMatrix(boxComponentTM);
-	
+	// ~Box primitive component
+
+	// Particle emitter for floating starts
+	m_pParticleComponent = GetEntity()->CreateComponent<Cry::DefaultComponents::CParticleComponent>();
+	m_pParticleComponent->SetEffectName("particles/stars.pfx");
+	m_pParticleComponent->Activate(true);
+	// ~Particle emitter for floating stars
 
 	// Create weapons.
 	CWeapon* pWeapon = m_pEntity->CreateComponent<CWeapon>();
@@ -75,20 +82,17 @@ void CPlayerShip::InitShip()
 	CWeapon* pWeapon2 = m_pEntity->CreateComponent<CWeapon>();
 	pWeapon2->SetLocalPosition(Vec3(-17.50001, 17, -2.2));
 	m_vWeapons.push_back(pWeapon2);
+	// ~Create weapons.
 
-	//// Physicalize the ship.
-	//SEntityPhysicalizeParams ePhysParams;
-	//ePhysParams.type = PE_RIGID;
-	//ePhysParams.mass = 0.f;
-	//GetEntity()->Physicalize(ePhysParams);
-
-	m_fMaxSpeed = 30.f;
-	//m_iHealth = 100.f;
+	m_fMaxSpeed = 0.50f;
+	m_iHealth = 100;
+	m_cameraOffset = Vec3(0, -35.f, 15.f);
 }
 
 void CPlayerShip::ProcessEvent(SEntityEvent & event)
 {
-	//updateShipRotation();
+	Vec3 forwardDir = GetEntity()->GetForwardDir();
+	GetEntity()->SetPos(GetEntity()->GetPos() + (forwardDir * m_fCurrentSpeed));
 }
 
 void CPlayerShip::updateShipRotation()
@@ -113,9 +117,9 @@ void CPlayerShip::updateShipRotation()
 	GetEntity()->SetLocalTM(transformation);
 }
 
-void CPlayerShip::setRotationWithMouseInput(const float &mouseRotationX, const float &mouseRotationY)
+void CPlayerShip::setRotation(const float &mouseRotationX, const float &mouseRotationY, const float &shipYaw)
 {
-	Ang3 angle = Ang3(DEG2RAD(mouseRotationY), DEG2RAD(-mouseRotationX), 0);
+	Ang3 angle = Ang3(DEG2RAD(mouseRotationY), DEG2RAD(-mouseRotationX), shipYaw);
 
 	Matrix34 tm = GetEntity()->GetWorldTM();
 	Matrix34 angrot = Matrix34::CreateRotationXYZ(angle);
@@ -123,8 +127,8 @@ void CPlayerShip::setRotationWithMouseInput(const float &mouseRotationX, const f
 	GetEntity()->SetWorldTM(tm);
 }
 
-void CPlayerShip::setPositionWithInput()
+void CPlayerShip::setSpeed(const float &speed)
 {
-	Vec3 forwardDir = GetEntity()->GetForwardDir();
-	GetEntity()->SetPos(GetEntity()->GetPos() + (forwardDir * 0.50f));
+	if ((speed > 0.f && m_fCurrentSpeed < m_fMaxSpeed) || (speed < 0.f && m_fCurrentSpeed > 0.f))
+		m_fCurrentSpeed += speed;
 }

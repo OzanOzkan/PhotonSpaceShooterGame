@@ -72,7 +72,7 @@ void CGamePlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lp
 		// Don't need to load the map in editor
 		if (!gEnv->IsEditor())
 		{
-			gEnv->pConsole->ExecuteString("map example", false, true);
+			gEnv->pConsole->ExecuteString("map models", false, true);
 		}
 	}
 	break;
@@ -124,7 +124,7 @@ bool CGamePlugin::OnClientReadyForGameplay(int channelId, bool bIsReset)
 		{
 			if (CPlayerComponent* pPlayer = pPlayerEntity->GetComponent<CPlayerComponent>())
 			{
-				//pPlayer->Revive();
+				pPlayer->SpawnShip();
 			}
 		}
 	}

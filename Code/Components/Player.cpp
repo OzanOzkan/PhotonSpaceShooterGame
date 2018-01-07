@@ -40,7 +40,7 @@ void CPlayerComponent::Initialize()
 	m_pInputComponent->BindAction("player", "moveback", eAID_KeyboardMouse, EKeyId::eKI_S);
 
 	m_pInputComponent->RegisterAction("player", "fire", [this](int activationMode, float value) { HandleInputFlagChange((TInputFlags)EInputFlag::Fire, activationMode);  });
-	m_pInputComponent->BindAction("player", "fire", eAID_KeyboardMouse, EKeyId::eKI_Space);
+	m_pInputComponent->BindAction("player", "fire", eAID_KeyboardMouse, EKeyId::eKI_Mouse1);
 
 	m_pInputComponent->RegisterAction("player", "mouse_rotateyaw", [this](int activationMode, float value) { m_mouseDeltaRotation.x -= value; });
 	m_pInputComponent->BindAction("player", "mouse_rotateyaw", eAID_KeyboardMouse, EKeyId::eKI_MouseX);
@@ -51,7 +51,6 @@ void CPlayerComponent::Initialize()
 	Revive();
 
 	//cameraTM.SetTranslation(Vec3(0, -3.f, 1.f));
-	cameraTM.SetTranslation(Vec3(0, -35.f, 15.f));
 }
 
 uint64 CPlayerComponent::GetEventMask() const
@@ -68,7 +67,8 @@ void CPlayerComponent::SpawnShip()
 	shipSpawnParams.qRotation = IDENTITY;
 	IEntity* pSpawnedShip = gEnv->pEntitySystem->SpawnEntity(shipSpawnParams);
 	m_pShip = pSpawnedShip->GetOrCreateComponent<CPlayerShip>();
-	GetEntity()->SetPos(m_pShip->GetEntity()->GetPos() + Vec3(0, -5.f, 1.f));
+	
+	cameraTM.SetTranslation(m_pShip->getCameraOffset());
 }
 
 void CPlayerComponent::ProcessEvent(SEntityEvent& event)
@@ -86,32 +86,31 @@ void CPlayerComponent::ProcessEvent(SEntityEvent& event)
 	{
 		SEntityUpdateContext* pCtx = (SEntityUpdateContext*)event.nParam[0];
 
-		const float moveSpeed = 5.5f;
-		const float finalMovementSpeed = moveSpeed * pCtx->fFrameTime;
-		Vec3 velocity = m_pShip->getVelocity();
+		float shipYaw = 0.f;
 
 		// Check input to calculate local space velocity
 		if (m_inputFlags & (TInputFlags)EInputFlag::MoveLeft)
 		{
+			shipYaw = 0.01f;
 		}
 		if (m_inputFlags & (TInputFlags)EInputFlag::MoveRight)
 		{
+			shipYaw = -0.01f;
 		}
 		if (m_inputFlags & (TInputFlags)EInputFlag::MoveForward)
 		{
-			//velocity.y += finalMovementSpeed;
-			static_cast<CPlayerShip*>(m_pShip)->setPositionWithInput();
+			m_pShip->setSpeed(0.01f);
 		}
 		if (m_inputFlags & (TInputFlags)EInputFlag::MoveBack)
 		{
-			//velocity.y -= finalMovementSpeed;
+			m_pShip->setSpeed(-0.001f);
 		}
 		if (m_inputFlags & (TInputFlags)EInputFlag::Fire)
 		{
 			m_pShip->Fire();
 		}
 
-		static_cast<CPlayerShip*>(m_pShip)->setRotationWithMouseInput(m_mouseDeltaRotation.x * 0.08f, m_mouseDeltaRotation.y * 0.08f);
+		m_pShip->setRotation(m_mouseDeltaRotation.x * 0.08f, m_mouseDeltaRotation.y * 0.08f, shipYaw * 0.08f);
 
 		m_mouseDeltaRotation = ZERO;
 
@@ -120,7 +119,6 @@ void CPlayerComponent::ProcessEvent(SEntityEvent& event)
 		Interpolate(cameraPos, cameraMatrix.GetTranslation(), 5.f, pCtx->fFrameTime);
 		cameraMatrix.SetTranslation(cameraPos);
 		GetEntity()->SetWorldTM(cameraMatrix);
-	
 	}
 	break;
 	}
@@ -128,14 +126,6 @@ void CPlayerComponent::ProcessEvent(SEntityEvent& event)
 
 void CPlayerComponent::Revive()
 {
-	// PlayerShip Spawn
-	SEntitySpawnParams shipSpawnParams;
-	shipSpawnParams.pClass = gEnv->pEntitySystem->GetClassRegistry()->GetDefaultClass();
-	shipSpawnParams.vPosition = Vec3(100, 100, 100);
-	shipSpawnParams.qRotation = IDENTITY;
-	m_pShip = gEnv->pEntitySystem->SpawnEntity(shipSpawnParams)->GetOrCreateComponent<CPlayerShip>();
-	// ~PlayerShip Spawn
-
 	// Set player transformation, but skip this in the Editor
 	if (!gEnv->IsEditor())
 	{

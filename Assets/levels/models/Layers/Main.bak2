@@ -1,13 +1,13 @@
 <ObjectLayer>
  <Layer Name="Main" FullName="Main" GUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Hidden="0" Frozen="0" Expanded="0" Type="0" Exportable="1" ExportLayerPak="1" DefaultLoaded="0" HavePhysics="1" IsDefaultColor="1">
   <LayerObjects>
-   <Object Type="EmptyEntity" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="6306609a-1096-029b-2819-d483f2d64636" Name="Entity-2" Pos="-5710.8516,10787.603,16" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
-    <Properties />
+   <Object Type="Brush" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="bcd11076-e37b-04b8-c299-0872d597b2de" Name="SF_Free-Fighter-2" Pos="474.94382,673.7821,71.732361" FloorNumber="-1" Rotate="1,0,0,0" Scale="3.5,3.5,3.5" ColorRGB="16777215" Material="objects/testobjects/SF_Free-Fighter" MatLayersMask="0" Prefab="objects/testobjects/SF_Free-Fighter.cgf" IgnoreVisareas="0" CastShadowMaps="1" GIMode="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610613768">
+    <CollisionFiltering />
    </Object>
    <Object Type="EntityWithStaticMeshComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="d105fe17-c74a-1a64-8643-e56dff7f5f65" Name="Entity-4" Pos="175.03174,1894.9771,31.747707" FloorNumber="-1" Rotate="0.96059591,0,-0.27794883,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
     <Properties />
     <Components>
-     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="be25b4d0-ddfd-7acc-f0d8-d8997c642db6" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="cb9f9375-6557-4932-e405-0639b4cc36b7" Name="" UserAdded="true">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -22,10 +22,10 @@
        <Physics Mass="10" Density="-1"/>
       </properties>
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="c394f062-5c5d-4409-38f4-7555042d6b68" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="b22d3b88-b361-48b7-f10b-f7f3bbdafb73" Name="" UserAdded="true">
       <properties Networked="false" EnabledByDefault="true" Type="Rigid" SendCollisionSignal="false"/>
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="45d447e0-15eb-8940-8289-1eda6eb6835c" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="6b892cc8-9aba-b2c1-aab0-b44ccbcd17b0" Name="" UserAdded="true">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -41,13 +41,16 @@
      </Component>
     </Components>
    </Object>
-   <Object Type="Brush" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="a406ac9a-1f5a-2643-79e0-fed4ed24417a" Name="SF_Free-Fighter-1" Pos="494.46185,658.9071,71.732361" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="16777215" Material="objects/testobjects/SF_Free-Fighter" MatLayersMask="0" Prefab="objects/testobjects/SF_Free-Fighter.cgf" IgnoreVisareas="0" CastShadowMaps="1" GIMode="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610613768">
+   <Object Type="Brush" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="a406ac9a-1f5a-2643-79e0-fed4ed24417a" Name="SF_Free-Fighter-1" Pos="494.46185,658.9071,71.732361" FloorNumber="-1" Rotate="1,0,0,0" Scale="3.5,3.5,3.5" ColorRGB="16777215" Material="objects/testobjects/SF_Free-Fighter" MatLayersMask="0" Prefab="objects/testobjects/SF_Free-Fighter.cgf" IgnoreVisareas="0" CastShadowMaps="1" GIMode="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610613768">
+    <CollisionFiltering />
+   </Object>
+   <Object Type="Brush" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="b048ef1f-909c-26a7-9300-666cc621f98e" Name="SF_Free-Fighter-3" Pos="473.36447,720.08087,71.732361" FloorNumber="-1" Rotate="1,0,0,0" Scale="3.5,3.5,3.5" ColorRGB="16777215" Material="objects/testobjects/SF_Free-Fighter" MatLayersMask="0" Prefab="objects/testobjects/SF_Free-Fighter.cgf" IgnoreVisareas="0" CastShadowMaps="1" GIMode="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610613768">
     <CollisionFiltering />
    </Object>
    <Object Type="EntityWithStaticMeshComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="b3d467a8-8a86-43cc-285a-7c096a3787bf" Name="Entity-1" Pos="661.27985,824.35315,63.747707" FloorNumber="-1" Rotate="0.96059591,0,-0.27794883,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
     <Properties />
     <Components>
-     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="b5e5e1dd-ef61-03aa-046c-b7a9b95026b6" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="2eb7dd0b-d4df-1ea1-7238-718c9c2a4662" Name="" UserAdded="true">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -62,10 +65,10 @@
        <Physics Mass="10" Density="-1"/>
       </properties>
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="295bebb7-a558-2b3e-b945-968ba1b88511" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="60b90328-2579-b794-15eb-6b844f2903a9" Name="" UserAdded="true">
       <properties Networked="false" EnabledByDefault="true" Type="Rigid" SendCollisionSignal="false"/>
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="459a3360-4cee-0728-0dcc-2e3edadd5f8c" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="27bae168-81d8-0dd7-69af-7fd7ed70a954" Name="" UserAdded="true">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -84,7 +87,7 @@
    <Object Type="EntityWithStaticMeshComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="1ac05951-caa7-643a-f558-494854f572ed" Name="Entity-5" Pos="460.58179,2817.7388,1228.2877" FloorNumber="-1" Rotate="0.96059591,0,-0.27794883,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
     <Properties />
     <Components>
-     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="86c29c41-03d7-b995-8599-fe05d1e4c85b" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="9f0fc149-0b4e-eb77-8fbc-191b78014aeb" Name="" UserAdded="true">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -99,10 +102,10 @@
        <Physics Mass="10" Density="-1"/>
       </properties>
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="98b0bf7e-f764-c22d-fa5a-ddf35d4c49da" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="03ac419c-f638-17c6-9172-3a08815bb34c" Name="" UserAdded="true">
       <properties Networked="false" EnabledByDefault="true" Type="Rigid" SendCollisionSignal="false"/>
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="ec033a8a-cebd-ffa4-1c9a-22af88220b81" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="b93d5a0d-a49a-3b28-ca7b-bf11555169a9" Name="" UserAdded="true">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>

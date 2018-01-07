@@ -50,8 +50,6 @@ void CBullet::FrameUpdate()
 {
 	if (IEntity* pEntity = GetEntity())
 	{
-		//pEntity->SetPos(Vec3(GetEntity()->GetPos().x, GetEntity()->GetPos().y + 5.f, GetEntity()->GetPos().z));
-		
 		Vec3 forwardDir = pEntity->GetForwardDir();
 		pEntity->SetPos(pEntity->GetPos() + (forwardDir * 2.f));
 	}

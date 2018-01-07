@@ -5,6 +5,7 @@
 #include <DefaultComponents/Physics/RigidBodyComponent.h>
 #include <DefaultComponents/Physics/BoxPrimitiveComponent.h>
 #include <DefaultComponents/Geometry/StaticMeshComponent.h>
+#include <DefaultComponents/Effects/ParticleComponent.h>
 
 #include <vector>
 #include <map>
@@ -15,7 +16,7 @@
 class IShip : public IEntityComponent
 {
 public:
-	IShip() : m_iHealth(0), m_fMaxSpeed(0.f) {};
+	IShip() : m_iHealth(0), m_fMaxSpeed(0.f), m_fCurrentSpeed(0.f), m_cameraOffset(ZERO) {};
 	virtual ~IShip() {};
 
 	virtual void Initialize() override;
@@ -27,6 +28,7 @@ public:
 	float GetMaxSpeed() { return m_fMaxSpeed; }
 	void setVelocity(Vec3 velocity);
 	Vec3 getVelocity();
+	Vec3 getCameraOffset() { return m_cameraOffset; }
 
 	static void ReflectType(Schematyc::CTypeDesc<IShip>& desc)
 	{
@@ -37,10 +39,13 @@ protected:
 	int m_iHealth;
 	std::vector<CWeapon*> m_vWeapons;
 	float m_fMaxSpeed;
+	float m_fCurrentSpeed;
+	Vec3 m_cameraOffset;
 
 	Cry::DefaultComponents::CStaticMeshComponent* m_pStaticMeshComponent = nullptr;
 	Cry::DefaultComponents::CRigidBodyComponent* m_pRigidBodyComponent = nullptr;
 	Cry::DefaultComponents::CBoxPrimitiveComponent* m_pBoxPrimitiveComponent = nullptr;
+	Cry::DefaultComponents::CParticleComponent* m_pParticleComponent = nullptr;
 };
 
 class CPlayerShip : public IShip
@@ -54,8 +59,8 @@ public:
 
 	virtual void InitShip() override;
 
-	void setRotationWithMouseInput(const float &mouseRotationX, const float &mouseRotationY);
-	void setPositionWithInput();
+	void setRotation(const float &mouseRotationX, const float &mouseRotationY, const float &shipYaw);
+	void setSpeed(const float &speed);
 
 	static void ReflectType(Schematyc::CTypeDesc<CPlayerShip>& desc)
 	{

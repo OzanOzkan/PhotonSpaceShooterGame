@@ -67,6 +67,6 @@ protected:
 	TInputFlags m_inputFlags;
 	Vec2 m_mouseDeltaRotation;
 
-	IShip* m_pShip = nullptr;
+	CPlayerShip* m_pShip = nullptr;
 	Matrix34 cameraTM = IDENTITY;
 };
