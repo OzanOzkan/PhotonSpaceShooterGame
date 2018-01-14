@@ -118,7 +118,9 @@ void CPlayerComponent::ProcessEvent(SEntityEvent& event)
 		Vec3 cameraPos = GetEntity()->GetPos();
 		Interpolate(cameraPos, cameraMatrix.GetTranslation(), 5.f, pCtx->fFrameTime);
 		cameraMatrix.SetTranslation(cameraPos);
-		GetEntity()->SetWorldTM(cameraMatrix);
+		
+		if(cameraMatrix.IsValid())
+			GetEntity()->SetWorldTM(cameraMatrix);
 	}
 	break;
 	}

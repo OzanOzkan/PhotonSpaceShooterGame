@@ -12,6 +12,7 @@
 
 #include "ShipPropulsion.h"
 #include "Weapon.h"
+#include "Bullet.h"
 
 class IShip : public IEntityComponent
 {
@@ -19,9 +20,17 @@ public:
 	IShip() : m_iHealth(0), m_fMaxSpeed(0.f), m_fCurrentSpeed(0.f), m_cameraOffset(ZERO) {};
 	virtual ~IShip() {};
 
+	// IEntityComponent
 	virtual void Initialize() override;
-	virtual void InitShip() {};
+	virtual uint64 GetEventMask() const override { return BIT64(ENTITY_EVENT_UPDATE) | BIT64(ENTITY_EVENT_COLLISION); }
+	virtual void ProcessEvent(SEntityEvent& event) override;
+	// ~IEntityComponent
 
+	// These functions must be implemented by every ship
+	virtual void ShipInit() {};
+	virtual void ShipEvent(SEntityEvent& event) {};
+
+	// Common functions for ships
 	void Fire();
 	void SetHealth(int health) { m_iHealth = health; }
 	int GetHealth() { return m_iHealth; }
@@ -54,10 +63,10 @@ public:
 	CPlayerShip() {};
 	virtual ~CPlayerShip() {};
 
-	virtual uint64 GetEventMask() const override { return BIT64(ENTITY_EVENT_UPDATE); }
-	virtual void ProcessEvent(SEntityEvent& event) override;
-
-	virtual void InitShip() override;
+	// IShip
+	virtual void ShipInit() override;
+	virtual void ShipEvent(SEntityEvent& event) override;
+	// ~IShip
 
 	void setRotation(const float &mouseRotationX, const float &mouseRotationY, const float &shipYaw);
 	void setSpeed(const float &speed);
@@ -72,4 +81,24 @@ public:
 
 private:
 	void updateShipRotation();
+};
+
+class CEnemyDestroyer : public IShip
+{
+public:
+	CEnemyDestroyer() {};
+	virtual ~CEnemyDestroyer() {};
+
+	// IShip
+	virtual void ShipInit() override;
+	virtual void ShipEvent(SEntityEvent& event) override;
+	// ~IShip
+
+	static void ReflectType(Schematyc::CTypeDesc<CEnemyDestroyer>& desc)
+	{
+		desc.SetGUID("{B3B3008A-ED72-4768-A378-02FCCC4C03A6}"_cry_guid);
+		desc.SetEditorCategory("MyComponents");
+		desc.SetLabel("EnemyShip");
+		desc.SetComponentFlags({ IEntityComponent::EFlags::Transform, IEntityComponent::EFlags::Socket, IEntityComponent::EFlags::Attach, IEntityComponent::EFlags::UserAdded });
+	};
 };
