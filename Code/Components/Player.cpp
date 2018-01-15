@@ -110,7 +110,7 @@ void CPlayerComponent::ProcessEvent(SEntityEvent& event)
 			m_pShip->Fire();
 		}
 
-		m_pShip->setRotation(m_mouseDeltaRotation.x * 0.08f, m_mouseDeltaRotation.y * 0.08f, shipYaw * 0.08f);
+		m_pShip->setRotation(m_mouseDeltaRotation.x, m_mouseDeltaRotation.y, shipYaw);
 
 		m_mouseDeltaRotation = ZERO;
 

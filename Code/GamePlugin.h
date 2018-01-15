@@ -9,26 +9,26 @@
 
 class CPlayerComponent;
 
-class CLevelListener : public ILevelSystemListener
-{
-public:
-	// Inherited via ILevelSystemListener
-	virtual void OnLevelNotFound(const char * levelName) override {};
-	virtual void OnLoadingStart(ILevelInfo * pLevel) override { m_CurrentLevelName = pLevel->GetName(); }
-	virtual void OnLoadingLevelEntitiesStart(ILevelInfo * pLevel) override { m_CurrentLevelName = pLevel->GetName(); }
-	virtual void OnLoadingComplete(ILevelInfo * pLevel) override {};
-	virtual void OnLoadingError(ILevelInfo * pLevel, const char * error) override {};
-	virtual void OnLoadingProgress(ILevelInfo * pLevel, int progressAmount) override {};
-	virtual void OnUnloadComplete(ILevelInfo * pLevel) override {};
-
-	virtual bool IsLoadedLevel(const char* levelName) 
-	{
-		return strcmp(levelName, m_CurrentLevelName);
-	}
-
-private:
-	const char* m_CurrentLevelName;
-};
+//class CLevelListener : public ILevelSystemListener
+//{
+//public:
+//	// Inherited via ILevelSystemListener
+//	virtual void OnLevelNotFound(const char * levelName) override {};
+//	virtual void OnLoadingStart(ILevelInfo * pLevel) override { m_CurrentLevelName = pLevel->GetName(); }
+//	virtual void OnLoadingLevelEntitiesStart(ILevelInfo * pLevel) override { m_CurrentLevelName = pLevel->GetName(); }
+//	virtual void OnLoadingComplete(ILevelInfo * pLevel) override {};
+//	virtual void OnLoadingError(ILevelInfo * pLevel, const char * error) override {};
+//	virtual void OnLoadingProgress(ILevelInfo * pLevel, int progressAmount) override {};
+//	virtual void OnUnloadComplete(ILevelInfo * pLevel) override {};
+//
+//	virtual bool IsLoadedLevel(const char* levelName) 
+//	{
+//		return strcmp(levelName, m_CurrentLevelName);
+//	}
+//
+//private:
+//	const char* m_CurrentLevelName;
+//};
 
 // The entry-point of the application
 // An instance of CGamePlugin is automatically created when the library is loaded

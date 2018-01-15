@@ -15,7 +15,7 @@
 // Included only once per DLL module.
 #include <CryCore/Platform/platform_impl.inl>
 
-CLevelListener g_LevelListener;
+//CLevelListener g_LevelListener;
 
 CGamePlugin::~CGamePlugin()
 {

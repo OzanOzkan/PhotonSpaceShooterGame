@@ -1,9 +1,9 @@
 cmake_minimum_required (VERSION 3.6.2)
-set(CRYENGINE_DIR "F:/CRYENGINE Launcher/Crytek/CRYENGINE_5.4")
+set(CRYENGINE_DIR "D:/GIT/Engines/cryengine_54.17.09.25")
 set(TOOLS_CMAKE_DIR "${CRYENGINE_DIR}/Tools/CMake")
 
 set(PROJECT_BUILD 1)
-set(PROJECT_DIR "F:/CRYENGINE Launcher/_PROJECTS/My Project")
+set(PROJECT_DIR "D:/OzanDocuments/GIT/SpaceShooter")
 
 include("${TOOLS_CMAKE_DIR}/CommonOptions.cmake")
 
@@ -26,14 +26,14 @@ add_sources("Components_uber.cpp"
     SOURCE_GROUP "Components"
 		"Components/Bullet.cpp"
 		"Components/Player.cpp"
+		"Components/Ship.cpp"
+		"Components/ShipPropulsion.cpp"
 		"Components/Weapon.cpp"
 		"Components/Bullet.h"
 		"Components/Player.h"
-		"Components/Weapon.h"
-		"Components/Ship.cpp"
 		"Components/Ship.h"
-		"Components/ShipPropulsion.cpp"
 		"Components/ShipPropulsion.h"
+		"Components/Weapon.h"
 )
 
 end_sources()
@@ -53,25 +53,25 @@ PRIVATE
 add_library(GameLauncher STATIC "${CRYENGINE_DIR}/Code/CryEngine/CryCommon/CryCore/Platform/platform.h")
 set_target_properties(GameLauncher PROPERTIES LINKER_LANGUAGE CXX)
 if (WIN32)
-    set_visual_studio_debugger_command(GameLauncher "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"F:/CRYENGINE Launcher/_PROJECTS/My Project/Game.cryproject\"")
+    set_visual_studio_debugger_command(GameLauncher "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"D:/OzanDocuments/GIT/SpaceShooter/Game.cryproject\"")
 endif()
 
 add_library(Sandbox STATIC "${CRYENGINE_DIR}/Code/CryEngine/CryCommon/CryCore/Platform/platform.h")
 set_target_properties(Sandbox PROPERTIES LINKER_LANGUAGE CXX)
 if (WIN32)
-    set_visual_studio_debugger_command(Sandbox "${CRYENGINE_DIR}/bin/win_x64/Sandbox.exe" "-project \"F:/CRYENGINE Launcher/_PROJECTS/My Project/Game.cryproject\"")
+    set_visual_studio_debugger_command(Sandbox "${CRYENGINE_DIR}/bin/win_x64/Sandbox.exe" "-project \"D:/OzanDocuments/GIT/SpaceShooter/Game.cryproject\"")
 endif()
 
 add_library(GameServer STATIC "${CRYENGINE_DIR}/Code/CryEngine/CryCommon/CryCore/Platform/platform.h")
 set_target_properties(GameServer PROPERTIES LINKER_LANGUAGE CXX)
 if (WIN32)
-    set_visual_studio_debugger_command(GameServer "${CRYENGINE_DIR}/bin/win_x64/Game_Server.exe" "-project \"F:/CRYENGINE Launcher/_PROJECTS/My Project/Game.cryproject\"")
+    set_visual_studio_debugger_command(GameServer "${CRYENGINE_DIR}/bin/win_x64/Game_Server.exe" "-project \"D:/OzanDocuments/GIT/SpaceShooter/Game.cryproject\"")
 endif()
 
 set_solution_startup_target(GameLauncher)
 
 if (WIN32)
-    set_visual_studio_debugger_command( ${THIS_PROJECT} "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"F:/CRYENGINE Launcher/_PROJECTS/My Project/Game.cryproject\"" )
+    set_visual_studio_debugger_command( ${THIS_PROJECT} "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"D:/OzanDocuments/GIT/SpaceShooter/Game.cryproject\"" )
 endif()
 
 #BEGIN-CUSTOM

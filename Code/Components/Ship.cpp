@@ -134,6 +134,7 @@ void CPlayerShip::updateShipRotation()
 
 void CPlayerShip::setRotation(const float &mouseRotationX, const float &mouseRotationY, const float &shipYaw)
 {
+	/*
 	Ang3 angle = Ang3(DEG2RAD(mouseRotationY), DEG2RAD(-mouseRotationX), shipYaw);
 
 	Matrix34 tm = GetEntity()->GetWorldTM();
@@ -142,6 +143,16 @@ void CPlayerShip::setRotation(const float &mouseRotationX, const float &mouseRot
 
 	if(tm.IsValid())
 		GetEntity()->SetWorldTM(tm);
+		*/
+
+	Ang3 angle = Ang3(DEG2RAD(mouseRotationY * 0.08f), DEG2RAD(-mouseRotationX * 0.08f), shipYaw * 0.008f);
+
+	Matrix34 tm = GetEntity()->GetWorldTM();
+	Matrix33 angrot = Matrix33::CreateRotationXYZ(angle);
+	tm = tm * angrot;
+	angle = CCamera::CreateAnglesYPR(Matrix33(tm));
+	tm.SetRotation33(CCamera::CreateOrientationYPR(angle));
+	GetEntity()->SetWorldTM(tm);
 }
 
 void CPlayerShip::setSpeed(const float &speed)
