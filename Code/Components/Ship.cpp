@@ -5,43 +5,57 @@ static void RegisterShipComponent(Schematyc::IEnvRegistrar& registrar)
 {
 	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
 	{
-		Schematyc::CEnvRegistrationScope componentScope = scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(IShip));
+		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(IShip));
+		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CPlayerShip));
+		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CEnemyDestroyer));
 	}
 }
 
 CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterShipComponent);
 
-static void RegisterPlayerShipComponent(Schematyc::IEnvRegistrar& registrar)
-{
-	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
-	{
-		Schematyc::CEnvRegistrationScope componentScope = scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CPlayerShip));
-	}
-}
-
-CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterPlayerShipComponent);
-
-static void RegisterEnemyDestroyerComponent(Schematyc::IEnvRegistrar& registrar)
-{
-	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
-	{
-		Schematyc::CEnvRegistrationScope componentScope = scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CEnemyDestroyer));
-	}
-}
-
-CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterEnemyDestroyerComponent);
-
 void IShip::Initialize()
 {
+	m_pBoxPrimitiveComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CBoxPrimitiveComponent>();
+	m_pBoxPrimitiveComponent->m_bReactToCollisions = false;
+
 	m_pStaticMeshComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CStaticMeshComponent>();
-	m_pRigidBodyComponent = m_pEntity->GetOrCreateComponent<Cry::DefaultComponents::CRigidBodyComponent>();
-	m_pBoxPrimitiveComponent = m_pEntity->GetOrCreateComponent<Cry::DefaultComponents::CBoxPrimitiveComponent>();
+
+	m_pRigidBodyComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CRigidBodyComponent>();
+	m_pRigidBodyComponent->m_bSendCollisionSignal = true;
 
 	ShipInit();
 }
 
 void IShip::ProcessEvent(SEntityEvent & event)
 {
+	// Common event implementations for ships.
+	switch (event.event)
+	{
+	case ENTITY_EVENT_UPDATE:
+	{
+		if (m_Health <= 0.f)
+		{
+			CryLogAlways("Ship %i destroyed!", GetEntity()->GetId()); // Debug
+		}
+	}
+	break;
+	case ENTITY_EVENT_COLLISION:
+	{
+		EventPhysCollision* physCollision = reinterpret_cast<EventPhysCollision*>(event.nParam[0]);
+
+		if (physCollision->pEntity[1])
+		{
+			IEntity* pOtherEntity = gEnv->pEntitySystem->GetEntityFromPhysics(physCollision->pEntity[1]);
+			if (pOtherEntity->GetComponent<CBullet>())
+			{
+				CryLogAlways("This is a bullet! - ID: %i - Health: %f", pOtherEntity->GetId(), m_Health); // Debug
+				m_Health -= 0.5f;
+			}
+		}
+	}
+	}
+
+	// Dispatch the event to ships for further personalized actions.
 	ShipEvent(event);
 }
 
@@ -63,11 +77,10 @@ Vec3 IShip::getVelocity()
 	return m_pRigidBodyComponent->GetVelocity();
 }
 
-void CPlayerShip::ShipInit()
+void IShip::LoadModel(const char* modelPath)
 {
 	// Load the ship model
-	//m_pStaticMeshComponent->SetFilePath("objects/testobjects/SF_Free-Fighter.cgf");
-	m_pStaticMeshComponent->SetFilePath("objects/arc/ARC170.cgf");
+	m_pStaticMeshComponent->SetFilePath(modelPath);
 
 	Cry::DefaultComponents::SPhysicsParameters &physParams = m_pStaticMeshComponent->GetPhysicsParameters();
 	physParams.m_mass = 0;
@@ -75,13 +88,22 @@ void CPlayerShip::ShipInit()
 	m_pStaticMeshComponent->LoadFromDisk();
 	m_pStaticMeshComponent->ResetObject();
 	// ~Load the ship model
+}
 
-	// Box primitive component
-	m_pBoxPrimitiveComponent->m_size = Vec3(0.6f, 0.8f, 0.3f);
-	Matrix34 boxComponentTM = m_pBoxPrimitiveComponent->GetTransformMatrix();
-	boxComponentTM.SetColumn(3, Vec3(0, 0, -0.3));
-	m_pBoxPrimitiveComponent->SetTransformMatrix(boxComponentTM);
-	// ~Box primitive component
+//////////////////////////////////////////////////////////////////////////////////
+//	CPlayerShip																	//
+//////////////////////////////////////////////////////////////////////////////////
+void CPlayerShip::ShipInit()
+{
+	//"objects/testobjects/SF_Free-Fighter.cgf"
+	LoadModel("objects/arc/ARC170.cgf");
+
+	//// Box primitive component
+	//m_pBoxPrimitiveComponent->m_size = Vec3(0.6f, 0.8f, 0.3f);
+	//Matrix34 boxComponentTM = m_pBoxPrimitiveComponent->GetTransformMatrix();
+	//boxComponentTM.SetColumn(3, Vec3(0, 0, -0.3));
+	//m_pBoxPrimitiveComponent->SetTransformMatrix(boxComponentTM);
+	//// ~Box primitive component
 
 	// Particle emitter for floating starts
 	m_pParticleComponent = GetEntity()->CreateComponent<Cry::DefaultComponents::CParticleComponent>();
@@ -98,10 +120,6 @@ void CPlayerShip::ShipInit()
 	pWeapon2->SetLocalPosition(Vec3(-17.50001, 17, -2.2));
 	m_vWeapons.push_back(pWeapon2);
 	// ~Create weapons.
-
-	m_fMaxSpeed = 0.50f;
-	m_iHealth = 100;
-	m_cameraOffset = Vec3(0, -35.f, 15.f);
 }
 
 void CPlayerShip::ShipEvent(SEntityEvent & event)
@@ -110,31 +128,12 @@ void CPlayerShip::ShipEvent(SEntityEvent & event)
 	GetEntity()->SetPos(GetEntity()->GetPos() + (forwardDir * m_fCurrentSpeed));
 }
 
-void CPlayerShip::updateShipRotation()
-{
-	// CAUTION: Max rotation -/+ 0.50f
-
-	Vec3 currentVelocity = getVelocity();
-
-	Matrix34 transformation = GetEntity()->GetLocalTM();
-
-	Ang3 ypr = CCamera::CreateAnglesYPR(Matrix33(transformation));
-	ypr.x = 0;
-
-	if (currentVelocity.z > -0.50f && currentVelocity.z < 0.50f)
-		ypr.y = currentVelocity.z * 0.05f;
-
-	if (currentVelocity.x > -0.50f && currentVelocity.x < 0.50f)
-		ypr.z = currentVelocity.x * 0.05f;
-
-	transformation.SetRotation33(CCamera::CreateOrientationYPR(ypr));
-
-	GetEntity()->SetLocalTM(transformation);
-}
-
 void CPlayerShip::setRotation(const float &mouseRotationX, const float &mouseRotationY, const float &shipYaw)
 {
-	/*
+	/* 
+	// This commented implementation is not working. 
+	// Something brokes the rendering or camera and suddenly everything dissapears at 90 degrees of rotation and beyond.
+
 	Ang3 angle = Ang3(DEG2RAD(mouseRotationY), DEG2RAD(-mouseRotationX), shipYaw);
 
 	Matrix34 tm = GetEntity()->GetWorldTM();
@@ -143,7 +142,7 @@ void CPlayerShip::setRotation(const float &mouseRotationX, const float &mouseRot
 
 	if(tm.IsValid())
 		GetEntity()->SetWorldTM(tm);
-		*/
+	*/
 
 	Ang3 angle = Ang3(DEG2RAD(mouseRotationY * 0.08f), DEG2RAD(-mouseRotationX * 0.08f), shipYaw * 0.008f);
 
@@ -161,42 +160,19 @@ void CPlayerShip::setSpeed(const float &speed)
 		m_fCurrentSpeed += speed;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+//	CEnemyDestroyer																//
+//////////////////////////////////////////////////////////////////////////////////
 void CEnemyDestroyer::ShipInit()
 {
 	// Load the ship model
-	//m_pStaticMeshComponent->SetFilePath("objects/testobjects/SF_Free-Fighter.cgf");
-	m_pStaticMeshComponent->SetFilePath("objects/testobjects/SF_Corvette-F3.cgf");
-
-	Cry::DefaultComponents::SPhysicsParameters &physParams = m_pStaticMeshComponent->GetPhysicsParameters();
-	physParams.m_mass = 0;
-
-	m_pStaticMeshComponent->LoadFromDisk();
-	m_pStaticMeshComponent->ResetObject();
-	// ~Load the ship model
-
-	m_iHealth = 100;
+	LoadModel("objects/testobjects/SF_Corvette-F3.cgf");
 
 	// TODO: Box collider size adjustment.
+	m_pBoxPrimitiveComponent->m_size = Vec3(75.f, 105.f, 10.f);
 }
 
 void CEnemyDestroyer::ShipEvent(SEntityEvent & event)
 {
-	switch (event.event)
-	{
-	case ENTITY_EVENT_COLLISION:
-	{
-		CryLogAlways("CEnemyDestroyer::ShipEvent() - COLLISION");
 
-		EventPhysCollision* physCollision = reinterpret_cast<EventPhysCollision*>(event.nParam[0]);
-		if (CBullet* pBullet = gEnv->pEntitySystem->GetEntityFromPhysics(physCollision->pEntity[0])->GetComponent<CBullet>())
-		{
-			CryLogAlways("ISABET! - ENTITY 0");
-		}
-
-		if (CBullet* pBullet = gEnv->pEntitySystem->GetEntityFromPhysics(physCollision->pEntity[1])->GetComponent<CBullet>())
-		{
-			CryLogAlways("ISABET! - ENTITY 1");
-		}
-	}
-	}
 }

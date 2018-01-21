@@ -1,13 +1,10 @@
 <ObjectLayer>
  <Layer Name="Main" FullName="Main" GUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Hidden="0" Frozen="0" Expanded="0" Type="0" Exportable="1" ExportLayerPak="1" DefaultLoaded="0" HavePhysics="1" IsDefaultColor="1">
   <LayerObjects>
-   <Object Type="Brush" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="bcd11076-e37b-04b8-c299-0872d597b2de" Name="SF_Free-Fighter-2" Pos="474.94382,673.7821,71.732361" FloorNumber="-1" Rotate="1,0,0,0" Scale="3.5,3.5,3.5" ColorRGB="16777215" Material="objects/testobjects/SF_Free-Fighter" MatLayersMask="0" Prefab="objects/testobjects/SF_Free-Fighter.cgf" IgnoreVisareas="0" CastShadowMaps="1" GIMode="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610613768">
-    <CollisionFiltering />
-   </Object>
-   <Object Type="EntityWithStaticMeshComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="d105fe17-c74a-1a64-8643-e56dff7f5f65" Name="Entity-4" Pos="175.03174,1894.9771,31.747707" FloorNumber="-1" Rotate="0.96059591,0,-0.27794883,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
+   <Object Type="EntityWithComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="f0c95b39-b77f-604f-d9f4-5599e71b297c" Name="Entity-2" Pos="1355.3816,1426.5895,32" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
     <Properties />
     <Components>
-     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="cb9f9375-6557-4932-e405-0639b4cc36b7" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="b3b3008a-ed72-4768-a378-02fccc4c03a6" TypeName="CEnemyDestroyer" GUID="97e83a4f-0989-f6b0-e6ec-0e1311b43192" Name="" UserAdded="true">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -17,15 +14,9 @@
        <rotation x="0" y="-0" z="0"/>
        <scale />
       </Transform>
-      <properties Type="RenderAndCollider" FilePath="objects/testobjects/SF_Corvette-F3.cgf" Material="">
-       <Render ShadowSpec="Low" IgnoreVisArea="false" ViewDistRatio="100" LODDistance="100" GIMode="None"/>
-       <Physics Mass="10" Density="-1"/>
-      </properties>
+      <properties />
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="b22d3b88-b361-48b7-f10b-f7f3bbdafb73" Name="" UserAdded="true">
-      <properties Networked="false" EnabledByDefault="true" Type="Rigid" SendCollisionSignal="false"/>
-     </Component>
-     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="6b892cc8-9aba-b2c1-aab0-b44ccbcd17b0" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="d07c7a91-2562-335e-d7b7-8d7cc564ff25" Name="" UserAdded="false">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -37,20 +28,55 @@
       </Transform>
       <properties Mass="10" Density="0" Surface="" ReactToCollisions="true">
        <Size x="1" y="1" z="1"/>
+      </properties>
+     </Component>
+     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="49522786-6051-805f-1194-3ffe84dfed67" Name="" UserAdded="false">
+      <Transform x="1" y="1" z="1">
+       <translation>
+        <element element="0"/>
+        <element element="0"/>
+        <element element="0"/>
+       </translation>
+       <rotation x="0" y="-0" z="0"/>
+       <scale />
+      </Transform>
+      <properties Type="RenderAndCollider" FilePath="objects/testobjects/SF_Corvette-F3.cgf" Material="">
+       <Render ShadowSpec="Low" IgnoreVisArea="false" ViewDistRatio="100" LODDistance="100" GIMode="None"/>
+       <Physics Mass="0" Density="0"/>
       </properties>
      </Component>
     </Components>
    </Object>
-   <Object Type="Brush" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="a406ac9a-1f5a-2643-79e0-fed4ed24417a" Name="SF_Free-Fighter-1" Pos="494.46185,658.9071,71.732361" FloorNumber="-1" Rotate="1,0,0,0" Scale="3.5,3.5,3.5" ColorRGB="16777215" Material="objects/testobjects/SF_Free-Fighter" MatLayersMask="0" Prefab="objects/testobjects/SF_Free-Fighter.cgf" IgnoreVisareas="0" CastShadowMaps="1" GIMode="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610613768">
-    <CollisionFiltering />
-   </Object>
-   <Object Type="Brush" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="b048ef1f-909c-26a7-9300-666cc621f98e" Name="SF_Free-Fighter-3" Pos="473.36447,720.08087,71.732361" FloorNumber="-1" Rotate="1,0,0,0" Scale="3.5,3.5,3.5" ColorRGB="16777215" Material="objects/testobjects/SF_Free-Fighter" MatLayersMask="0" Prefab="objects/testobjects/SF_Free-Fighter.cgf" IgnoreVisareas="0" CastShadowMaps="1" GIMode="1" RainOccluder="1" SupportSecondVisarea="0" DynamicDistanceShadows="0" Hideable="0" LodRatio="100" ViewDistRatio="100" NotTriangulate="0" NoDynamicWater="0" AIRadius="-1" NoStaticDecals="0" RecvWind="0" Occluder="0" DrawLast="0" ShadowLodBias="0" RndFlags="1610613768">
-    <CollisionFiltering />
-   </Object>
-   <Object Type="EntityWithStaticMeshComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="b3d467a8-8a86-43cc-285a-7c096a3787bf" Name="Entity-1" Pos="661.27985,824.35315,63.747707" FloorNumber="-1" Rotate="0.96059591,0,-0.27794883,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
+   <Object Type="EntityWithComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="1b6606ce-e7ab-d1ae-c708-c0c23d6272d0" Name="Entity-1" Pos="1090.442,1677.5503,32" FloorNumber="-1" Rotate="1,0,0,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
     <Properties />
     <Components>
-     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="2eb7dd0b-d4df-1ea1-7238-718c9c2a4662" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="1305fa0d-d205-486d-b84c-a639f9988373" TypeName="CTestEntity" GUID="3cb9257c-231b-5aaf-3ffe-73f38703fbac" Name="" UserAdded="true">
+      <Transform x="1" y="1" z="1">
+       <translation>
+        <element element="0"/>
+        <element element="0"/>
+        <element element="0"/>
+       </translation>
+       <rotation x="0" y="-0" z="0"/>
+       <scale />
+      </Transform>
+      <properties />
+     </Component>
+     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="051bbfce-4ed6-7c0b-6b9a-6165f2f998c4" Name="" UserAdded="false">
+      <Transform x="1" y="1" z="1">
+       <translation>
+        <element element="0"/>
+        <element element="0"/>
+        <element element="0"/>
+       </translation>
+       <rotation x="0" y="-0" z="0"/>
+       <scale />
+      </Transform>
+      <properties Mass="10" Density="0" Surface="" ReactToCollisions="true">
+       <Size x="60" y="60" z="60"/>
+      </properties>
+     </Component>
+     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="ac8a766a-b3f9-286c-b7c9-95df3dfba56a" Name="" UserAdded="false">
       <Transform x="1" y="1" z="1">
        <translation>
         <element element="0"/>
@@ -62,62 +88,11 @@
       </Transform>
       <properties Type="RenderAndCollider" FilePath="objects/testobjects/SF_Corvette-F3.cgf" Material="">
        <Render ShadowSpec="Low" IgnoreVisArea="false" ViewDistRatio="100" LODDistance="100" GIMode="None"/>
-       <Physics Mass="10" Density="-1"/>
+       <Physics Mass="0" Density="0"/>
       </properties>
      </Component>
-     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="60b90328-2579-b794-15eb-6b844f2903a9" Name="" UserAdded="true">
+     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="203b2319-575f-9a31-e6ba-58dff64993be" Name="" UserAdded="false">
       <properties Networked="false" EnabledByDefault="true" Type="Rigid" SendCollisionSignal="false"/>
-     </Component>
-     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="27bae168-81d8-0dd7-69af-7fd7ed70a954" Name="" UserAdded="true">
-      <Transform x="1" y="1" z="1">
-       <translation>
-        <element element="0"/>
-        <element element="0"/>
-        <element element="0"/>
-       </translation>
-       <rotation x="0" y="-0" z="0"/>
-       <scale />
-      </Transform>
-      <properties Mass="10" Density="0" Surface="" ReactToCollisions="true">
-       <Size x="1" y="1" z="1"/>
-      </properties>
-     </Component>
-    </Components>
-   </Object>
-   <Object Type="EntityWithStaticMeshComponent" Layer="Main" LayerGUID="7062e7c4-2d3e-2dd0-d416-674f04b0df6e" Id="1ac05951-caa7-643a-f558-494854f572ed" Name="Entity-5" Pos="460.58179,2817.7388,1228.2877" FloorNumber="-1" Rotate="0.96059591,0,-0.27794883,0" ColorRGB="65535" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="Entity" HasEntity="1">
-    <Properties />
-    <Components>
-     <Component CryXmlVersion="2" TypeGUID="6ddd0033-6aaa-4b71-b8ea-108258205e29" TypeName="Cry::DefaultComponents::CStaticMeshComponent" GUID="9f0fc149-0b4e-eb77-8fbc-191b78014aeb" Name="" UserAdded="true">
-      <Transform x="1" y="1" z="1">
-       <translation>
-        <element element="0"/>
-        <element element="0"/>
-        <element element="0"/>
-       </translation>
-       <rotation x="0" y="-0" z="0"/>
-       <scale />
-      </Transform>
-      <properties Type="RenderAndCollider" FilePath="objects/testobjects/SF_Corvette-F3.cgf" Material="">
-       <Render ShadowSpec="Low" IgnoreVisArea="false" ViewDistRatio="100" LODDistance="100" GIMode="None"/>
-       <Physics Mass="10" Density="-1"/>
-      </properties>
-     </Component>
-     <Component CryXmlVersion="2" TypeGUID="912c6ce8-56f7-4ffa-9134-f98d4e307bd6" TypeName="Cry::DefaultComponents::CRigidBodyComponent" GUID="03ac419c-f638-17c6-9172-3a08815bb34c" Name="" UserAdded="true">
-      <properties Networked="false" EnabledByDefault="true" Type="Rigid" SendCollisionSignal="false"/>
-     </Component>
-     <Component CryXmlVersion="2" TypeGUID="52431c11-77ee-410a-a7a7-a7fa69e79685" TypeName="Cry::DefaultComponents::CBoxPrimitiveComponent" GUID="b93d5a0d-a49a-3b28-ca7b-bf11555169a9" Name="" UserAdded="true">
-      <Transform x="1" y="1" z="1">
-       <translation>
-        <element element="0"/>
-        <element element="0"/>
-        <element element="0"/>
-       </translation>
-       <rotation x="0" y="-0" z="0"/>
-       <scale />
-      </Transform>
-      <properties Mass="10" Density="0" Surface="" ReactToCollisions="true">
-       <Size x="1" y="1" z="1"/>
-      </properties>
      </Component>
     </Components>
    </Object>

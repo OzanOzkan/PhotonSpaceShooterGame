@@ -5,9 +5,26 @@
 
 #include <CryRenderer/IRenderAuxGeom.h>
 
+static void RegisterBulletComponent(Schematyc::IEnvRegistrar& registrar)
+{
+	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
+	{
+		Schematyc::CEnvRegistrationScope componentScope = scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CBullet));
+	}
+}
+
+CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterBulletComponent);
+
+
 // Called on entity creation time
 void CBullet::Initialize()
 {
+	m_pBoxPrimitiveComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CBoxPrimitiveComponent>();
+	m_pBoxPrimitiveComponent->m_size = Vec3(0.5f, 4.5f, 0.2f);
+	Matrix34 boxComponentTM = m_pBoxPrimitiveComponent->GetTransformMatrix();
+	boxComponentTM.SetColumn(3, Vec3(0.5, 4.5, 0));
+	m_pBoxPrimitiveComponent->SetTransformMatrix(boxComponentTM);
+
 	// Static mesh component
 	m_pStaticMeshComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CStaticMeshComponent>();
 	m_pStaticMeshComponent->SetFilePath("objects/bullet/bullet.cgf");
@@ -22,13 +39,9 @@ void CBullet::Initialize()
 	IMaterial* pMaterial = gEnv->p3DEngine->GetMaterialManager()->LoadMaterial("objects/bullet/bullet");
 	GetEntity()->SetMaterial(pMaterial);
 
-	//SEntityPhysicalizeParams sPhysicsParams;
-	//sPhysicsParams.type = PE_RIGID;
-	//sPhysicsParams.mass = 0.f;
-	//
-	//GetEntity()->Physicalize(sPhysicsParams);
+	m_pRigidBodyComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CRigidBodyComponent>();
 
-	GetEntity()->PrePhysicsActivate(true);
+	//GetEntity()->PrePhysicsActivate(true);
 }
 
 void CBullet::ProcessEvent(SEntityEvent& event)
@@ -39,19 +52,22 @@ void CBullet::ProcessEvent(SEntityEvent& event)
 	{
 		FrameUpdate();
 	}
+	break;
 	case ENTITY_EVENT_COLLISION:
 	{
-		OnCollision((EventPhysCollision*)event.nParam[0]);
+		OnCollision(reinterpret_cast<EventPhysCollision*>(event.nParam[0]));
 	}
 	}
 }
 
 void CBullet::FrameUpdate()
 {
-	if (IEntity* pEntity = GetEntity())
+	if (GetEntity())
 	{
-		Vec3 forwardDir = pEntity->GetForwardDir();
-		pEntity->SetPos(pEntity->GetPos() + (forwardDir * 2.f));
+		Vec3 forwardDir = GetEntity()->GetForwardDir();
+		Matrix34 entityTM = GetEntity()->GetWorldTM();
+		entityTM.SetTranslation(entityTM.GetTranslation() + (forwardDir * 8.f));
+		GetEntity()->SetWorldTM(entityTM);
 	}
 
 	++m_DestroyTimer;
@@ -67,5 +83,6 @@ void CBullet::FrameUpdate()
 
 void CBullet::OnCollision(EventPhysCollision *pCollision)
 {
-		
+	CryLogAlways("Bullet %i collided.", GetEntity()->GetId());
+	gEnv->pEntitySystem->RemoveEntity(GetEntity()->GetId());
 }

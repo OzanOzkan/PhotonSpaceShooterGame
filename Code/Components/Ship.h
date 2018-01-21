@@ -17,7 +17,9 @@
 class IShip : public IEntityComponent
 {
 public:
-	IShip() : m_iHealth(0), m_fMaxSpeed(0.f), m_fCurrentSpeed(0.f), m_cameraOffset(ZERO) {};
+	IShip() : m_Health(ZERO), m_fMaxSpeed(ZERO), m_fCurrentSpeed(ZERO), m_cameraOffset(ZERO) {};
+	IShip(float health) : m_Health(health), m_fMaxSpeed(0.f), m_fCurrentSpeed(ZERO), m_cameraOffset(ZERO) {};
+	IShip(float health, float maxSpeed, Vec3 cameraOffset) : m_Health(health), m_fMaxSpeed(maxSpeed), m_fCurrentSpeed(ZERO), m_cameraOffset(cameraOffset) {};
 	virtual ~IShip() {};
 
 	// IEntityComponent
@@ -32,8 +34,8 @@ public:
 
 	// Common functions for ships
 	void Fire();
-	void SetHealth(int health) { m_iHealth = health; }
-	int GetHealth() { return m_iHealth; }
+	void SetHealth(float health) { m_Health = health; }
+	float GetHealth() { return m_Health; }
 	float GetMaxSpeed() { return m_fMaxSpeed; }
 	void setVelocity(Vec3 velocity);
 	Vec3 getVelocity();
@@ -45,7 +47,10 @@ public:
 	};
 
 protected:
-	int m_iHealth;
+	void LoadModel(const char* modelPath);
+
+protected:
+	float m_Health;
 	std::vector<CWeapon*> m_vWeapons;
 	float m_fMaxSpeed;
 	float m_fCurrentSpeed;
@@ -60,7 +65,7 @@ protected:
 class CPlayerShip : public IShip
 {
 public:
-	CPlayerShip() {};
+	CPlayerShip() : IShip(100.f, 0.5f, Vec3(0, -35.f, 15.f)) {};
 	virtual ~CPlayerShip() {};
 
 	// IShip
@@ -78,15 +83,12 @@ public:
 		desc.SetLabel("PlayerShip");
 		desc.SetComponentFlags({ IEntityComponent::EFlags::Transform, IEntityComponent::EFlags::Socket, IEntityComponent::EFlags::Attach, IEntityComponent::EFlags::UserAdded });
 	};
-
-private:
-	void updateShipRotation();
 };
 
 class CEnemyDestroyer : public IShip
 {
 public:
-	CEnemyDestroyer() {};
+	CEnemyDestroyer() : IShip(100.f) {};
 	virtual ~CEnemyDestroyer() {};
 
 	// IShip

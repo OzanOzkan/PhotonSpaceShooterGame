@@ -3,7 +3,6 @@
   <File path="test/test.cry"/>
  </Files>
  <Dependencies>
-  <Path>%engine%/config/defaultscripts/compressionpolicy.xml</Path>
   <Path>%engine%/engineassets/codecoverage/hit.dds</Path>
   <Path>%engine%/engineassets/codecoverage/pbar.dds</Path>
   <Path>%engine%/engineassets/codecoverage/unexpected.dds</Path>
@@ -11,8 +10,37 @@
   <Path>%engine%/engineassets/icons/highmemoryusage.dds</Path>
   <Path>%engine%/engineassets/icons/livepreview.dds</Path>
   <Path>%engine%/engineassets/icons/lowmemoryusage.dds</Path>
+  <Path>%engine%/engineassets/materials/fog/fogvolumebox.mtl</Path>
+  <Path>%engine%/engineassets/materials/fog/fogvolumeellipsoid.mtl</Path>
+  <Path>%engine%/engineassets/materials/fog/oceaninto.mtl</Path>
+  <Path>%engine%/engineassets/materials/fog/oceanintolowspec.mtl</Path>
+  <Path>%engine%/engineassets/materials/fog/oceanoutof.mtl</Path>
+  <Path>%engine%/engineassets/materials/fog/oceanoutoflowspec.mtl</Path>
+  <Path>%engine%/engineassets/materials/material_terrain_default.mtl</Path>
+  <Path>%engine%/engineassets/materials/sky/sky.mtl</Path>
+  <Path>%engine%/engineassets/materials/water/ocean_default.mtl</Path>
+  <Path>%engine%/engineassets/materials/water/wateroceanbottom.mtl</Path>
+  <Path>%engine%/engineassets/objects/default.cgf</Path>
+  <Path>%engine%/engineassets/texturemsg/defaultnouvs.dds</Path>
+  <Path>%engine%/engineassets/texturemsg/defaultsolids.mtl</Path>
+  <Path>%engine%/engineassets/textures/defaults/16_12.dds</Path>
+  <Path>%engine%/engineassets/textures/defaults/16_34.dds</Path>
+  <Path>%engine%/engineassets/textures/defaults/16_5.dds</Path>
+  <Path>%engine%/engineassets/textures/defaults/16_grey.dds</Path>
   <Path>%engine%/engineassets/textures/grey.dds</Path>
+  <Path>%engine%/engineassets/textures/skys/night/half_moon.dds</Path>
   <Path>libs/environmentpresets/test.xml</Path>
   <Path>objects/arc/arc170.cgf</Path>
+  <Path>objects/arc/arc170.mtl</Path>
+  <Path>objects/arc/arc170_txt_version_4_d.dds</Path>
+  <Path>objects/arc/arc170_txt_version_4_d_normal.dds</Path>
+  <Path>objects/bullet/bullet.cgf</Path>
+  <Path>objects/bullet/bullet.mtl</Path>
+  <Path>objects/test.cgf</Path>
+  <Path>objects/testobjects/sf_corvette-f3.cgf</Path>
+  <Path>objects/testobjects/sf_corvette-f3.mtl</Path>
+  <Path>objects/testobjects/sf_corvette-f3_diffuse.dds</Path>
+  <Path>particles/stars.pfx</Path>
+  <Path>scripts/ai/factions.xml</Path>
  </Dependencies>
 </AssetMetadata>
