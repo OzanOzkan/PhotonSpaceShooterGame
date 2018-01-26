@@ -170,6 +170,8 @@ void CEnemyDestroyer::ShipInit()
 
 	// TODO: Box collider size adjustment.
 	m_pBoxPrimitiveComponent->m_size = Vec3(75.f, 105.f, 10.f);
+
+	m_pBoxPrimitiveComponent->AddPrimitive();
 }
 
 void CEnemyDestroyer::ShipEvent(SEntityEvent & event)
