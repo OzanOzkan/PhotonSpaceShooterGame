@@ -14,13 +14,13 @@
 #include "Weapon.h"
 #include "Bullet.h"
 
-class IShip : public IEntityComponent
+class CShip : public IEntityComponent
 {
 public:
-	IShip() : m_Health(ZERO), m_fMaxSpeed(ZERO), m_fCurrentSpeed(ZERO), m_cameraOffset(ZERO) {};
-	IShip(float health) : m_Health(health), m_fMaxSpeed(0.f), m_fCurrentSpeed(ZERO), m_cameraOffset(ZERO) {};
-	IShip(float health, float maxSpeed, Vec3 cameraOffset) : m_Health(health), m_fMaxSpeed(maxSpeed), m_fCurrentSpeed(ZERO), m_cameraOffset(cameraOffset) {};
-	virtual ~IShip() {};
+	CShip() : m_Health(ZERO), m_fMaxSpeed(ZERO), m_fCurrentSpeed(ZERO), m_cameraOffset(ZERO) {};
+	CShip(float health) : m_Health(health), m_fMaxSpeed(0.f), m_fCurrentSpeed(ZERO), m_cameraOffset(ZERO) {};
+	CShip(float health, float maxSpeed, Vec3 cameraOffset) : m_Health(health), m_fMaxSpeed(maxSpeed), m_fCurrentSpeed(ZERO), m_cameraOffset(cameraOffset) {};
+	virtual ~CShip() {};
 
 	// IEntityComponent
 	virtual void Initialize() override;
@@ -41,7 +41,7 @@ public:
 	Vec3 getVelocity();
 	Vec3 getCameraOffset() { return m_cameraOffset; }
 
-	static void ReflectType(Schematyc::CTypeDesc<IShip>& desc)
+	static void ReflectType(Schematyc::CTypeDesc<CShip>& desc)
 	{
 		desc.SetGUID("{F6C23919-7690-4932-8BFD-5A340CCABCA9}"_cry_guid);
 	};
@@ -62,16 +62,16 @@ protected:
 	Cry::DefaultComponents::CParticleComponent* m_pParticleComponent = nullptr;
 };
 
-class CPlayerShip : public IShip
+class CPlayerShip : public CShip
 {
 public:
-	CPlayerShip() : IShip(100.f, 0.5f, Vec3(0, -35.f, 15.f)) {};
+	CPlayerShip() : CShip(100.f, 0.5f, Vec3(0, -35.f, 15.f)) {};
 	virtual ~CPlayerShip() {};
 
-	// IShip
+	// CShip
 	virtual void ShipInit() override;
 	virtual void ShipEvent(SEntityEvent& event) override;
-	// ~IShip
+	// ~CShip
 
 	void setRotation(const float &mouseRotationX, const float &mouseRotationY, const float &shipYaw);
 	void setSpeed(const float &speed);
@@ -85,16 +85,16 @@ public:
 	};
 };
 
-class CEnemyDestroyer : public IShip
+class CEnemyDestroyer : public CShip
 {
 public:
-	CEnemyDestroyer() : IShip(100.f) {};
+	CEnemyDestroyer() : CShip(100.f) {};
 	virtual ~CEnemyDestroyer() {};
 
-	// IShip
+	// CShip
 	virtual void ShipInit() override;
 	virtual void ShipEvent(SEntityEvent& event) override;
-	// ~IShip
+	// ~CShip
 
 	static void ReflectType(Schematyc::CTypeDesc<CEnemyDestroyer>& desc)
 	{

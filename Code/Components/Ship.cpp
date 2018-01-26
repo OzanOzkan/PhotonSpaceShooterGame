@@ -5,7 +5,7 @@ static void RegisterShipComponent(Schematyc::IEnvRegistrar& registrar)
 {
 	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
 	{
-		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(IShip));
+		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CShip));
 		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CPlayerShip));
 		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CEnemyDestroyer));
 	}
@@ -13,7 +13,7 @@ static void RegisterShipComponent(Schematyc::IEnvRegistrar& registrar)
 
 CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterShipComponent);
 
-void IShip::Initialize()
+void CShip::Initialize()
 {
 	m_pBoxPrimitiveComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CBoxPrimitiveComponent>();
 	m_pBoxPrimitiveComponent->m_bReactToCollisions = false;
@@ -26,7 +26,7 @@ void IShip::Initialize()
 	ShipInit();
 }
 
-void IShip::ProcessEvent(SEntityEvent & event)
+void CShip::ProcessEvent(SEntityEvent & event)
 {
 	// Common event implementations for ships.
 	switch (event.event)
@@ -59,7 +59,7 @@ void IShip::ProcessEvent(SEntityEvent & event)
 	ShipEvent(event);
 }
 
-void IShip::Fire()
+void CShip::Fire()
 {
 	for (CWeapon* currentWeapon : m_vWeapons)
 	{
@@ -67,17 +67,17 @@ void IShip::Fire()
 	}
 }
 
-void IShip::setVelocity(Vec3 velocity)
+void CShip::setVelocity(Vec3 velocity)
 {
 	m_pRigidBodyComponent->SetVelocity(velocity); // Todo: speed limits
 }
 
-Vec3 IShip::getVelocity()
+Vec3 CShip::getVelocity()
 {
 	return m_pRigidBodyComponent->GetVelocity();
 }
 
-void IShip::LoadModel(const char* modelPath)
+void CShip::LoadModel(const char* modelPath)
 {
 	// Load the ship model
 	m_pStaticMeshComponent->SetFilePath(modelPath);
