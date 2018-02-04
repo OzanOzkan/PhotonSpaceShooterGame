@@ -8,6 +8,7 @@ static void RegisterShipComponent(Schematyc::IEnvRegistrar& registrar)
 		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CShip));
 		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CPlayerShip));
 		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CEnemyDestroyer));
+		scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CEnemySmallShip));
 	}
 }
 
@@ -175,6 +176,25 @@ void CEnemyDestroyer::ShipInit()
 }
 
 void CEnemyDestroyer::ShipEvent(SEntityEvent & event)
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+//	CEnemySmallShip																//
+//////////////////////////////////////////////////////////////////////////////////
+void CEnemySmallShip::ShipInit()
+{
+	// Load the ship model
+	LoadModel("objects/testobjects/SF_Free-Fighter.cgf");
+
+	// TODO: Box collider size adjustment.
+	m_pBoxPrimitiveComponent->m_size = Vec3(75.f, 105.f, 10.f);
+
+	m_pBoxPrimitiveComponent->AddPrimitive();
+}
+
+void CEnemySmallShip::ShipEvent(SEntityEvent & event)
 {
 
 }

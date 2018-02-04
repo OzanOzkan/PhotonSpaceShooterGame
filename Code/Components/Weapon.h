@@ -7,7 +7,7 @@
 class CWeapon : public IEntityComponent
 {
 public:
-	CWeapon() : m_fLastFireTime(50.f){};
+	CWeapon() : m_fFireRate(25.f){};
 	~CWeapon() {};
 
 	// IEntityComponent
@@ -34,4 +34,5 @@ private:
 
 private:
 	float m_fLastFireTime;
+	float m_fFireRate;
 };

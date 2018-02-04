@@ -41,6 +41,12 @@ void CBullet::Initialize()
 
 	m_pRigidBodyComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CRigidBodyComponent>();
 
+	//m_sparkParticleSpawnParams.pClass = gEnv->pEntitySystem->GetClassRegistry()->GetDefaultClass();
+	//m_sparkParticleSpawnParams.sName = "Spark";
+
+	m_pSparkParticleComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CParticleComponent>();
+	m_pSparkParticleComponent->SetEffectName("particles/sparks.pfx");
+
 	//GetEntity()->PrePhysicsActivate(true);
 }
 
@@ -66,7 +72,7 @@ void CBullet::FrameUpdate()
 	{
 		Vec3 forwardDir = GetEntity()->GetForwardDir();
 		Matrix34 entityTM = GetEntity()->GetWorldTM();
-		entityTM.SetTranslation(entityTM.GetTranslation() + (forwardDir * 8.f));
+		entityTM.SetTranslation(entityTM.GetTranslation() + (forwardDir * 10.f));
 		GetEntity()->SetWorldTM(entityTM);
 	}
 
@@ -84,5 +90,14 @@ void CBullet::FrameUpdate()
 void CBullet::OnCollision(EventPhysCollision *pCollision)
 {
 	CryLogAlways("Bullet %i collided.", GetEntity()->GetId());
+
+	m_pSparkParticleComponent->Activate(true);
+
+	//m_sparkParticleSpawnParams.vPosition = GetEntity()->GetWorldPos();
+	//IEntity *pSpark = gEnv->pEntitySystem->SpawnEntity(m_sparkParticleSpawnParams);
+	//Cry::DefaultComponents::CParticleComponent* pParticle = pSpark->GetOrCreateComponent<Cry::DefaultComponents::CParticleComponent>();
+	//pParticle->SetEffectName("particles/test.pfx");
+	//pParticle->Activate(true);
+
 	gEnv->pEntitySystem->RemoveEntity(GetEntity()->GetId());
 }

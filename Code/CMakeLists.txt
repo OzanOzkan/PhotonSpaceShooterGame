@@ -37,6 +37,12 @@ add_sources("Components_uber.cpp"
 		"Components/TestEntity.cpp"
 		"Components/TestEntity.h"
 )
+add_sources("ComponentsPhoton_uber.cpp"
+    PROJECTS Game
+    SOURCE_GROUP "Photon"
+		"Components/Photon/PhotonComponent.cpp"
+		"Components/Photon/PhotonComponent.h"
+)
 
 end_sources()
 
@@ -78,4 +84,12 @@ endif()
 
 #BEGIN-CUSTOM
 # Make any custom changes here, modifications outside of the block will be discarded on regeneration.
+set(PHOTON_DIR "${PROJECT_DIR}/solutions/win64/libs/Photon/")
+
+include_directories("${PHOTON_DIR}")
+link_directories("${PHOTON_DIR}/Common-cpp/lib/" "${PHOTON_DIR}/Photon-cpp/lib/" "${PHOTON_DIR}/LoadBalancing-cpp/lib/" "${PHOTON_DIR}/Chat-cpp/lib/")
+link_libraries("${PHOTON_DIR}/Common-cpp/lib/Common-cpp_debug_windows_md_x64.lib")
+link_libraries("${PHOTON_DIR}/Photon-cpp/lib/Photon-cpp_debug_windows_md_x64.lib")
+link_libraries("${PHOTON_DIR}/LoadBalancing-cpp/lib/LoadBalancing-cpp_debug_windows_md_x64.lib")
+link_libraries("${PHOTON_DIR}/Chat-cpp/lib/Chat-cpp_debug_windows_md_x64.lib")
 #END-CUSTOM

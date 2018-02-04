@@ -14,6 +14,9 @@
 #include "Weapon.h"
 #include "Bullet.h"
 
+//////////////////////////////////////////////////////////////////////////////////
+//	CShip																		//
+//////////////////////////////////////////////////////////////////////////////////
 class CShip : public IEntityComponent
 {
 public:
@@ -62,6 +65,9 @@ protected:
 	Cry::DefaultComponents::CParticleComponent* m_pParticleComponent = nullptr;
 };
 
+//////////////////////////////////////////////////////////////////////////////////
+//	CPlayerShip																	//
+//////////////////////////////////////////////////////////////////////////////////
 class CPlayerShip : public CShip
 {
 public:
@@ -85,6 +91,9 @@ public:
 	};
 };
 
+//////////////////////////////////////////////////////////////////////////////////
+//	CEnemyDestroyer																//
+//////////////////////////////////////////////////////////////////////////////////
 class CEnemyDestroyer : public CShip
 {
 public:
@@ -101,6 +110,29 @@ public:
 		desc.SetGUID("{B3B3008A-ED72-4768-A378-02FCCC4C03A6}"_cry_guid);
 		desc.SetEditorCategory("MyComponents");
 		desc.SetLabel("EnemyShip");
+		desc.SetComponentFlags({ IEntityComponent::EFlags::Transform, IEntityComponent::EFlags::Socket, IEntityComponent::EFlags::Attach, IEntityComponent::EFlags::UserAdded });
+	};
+};
+
+//////////////////////////////////////////////////////////////////////////////////
+//	CEnemySmallShip																//
+//////////////////////////////////////////////////////////////////////////////////
+class CEnemySmallShip : public CShip
+{
+public:
+	CEnemySmallShip() : CShip(100.f) {};
+	virtual ~CEnemySmallShip() {};
+
+	// CShip
+	virtual void ShipInit() override;
+	virtual void ShipEvent(SEntityEvent& event) override;
+	// ~CShip
+
+	static void ReflectType(Schematyc::CTypeDesc<CEnemySmallShip>& desc)
+	{
+		desc.SetGUID("{01D38521-6921-4101-9C55-522FE1323256}"_cry_guid);
+		desc.SetEditorCategory("MyComponents");
+		desc.SetLabel("EnemySmallShip");
 		desc.SetComponentFlags({ IEntityComponent::EFlags::Transform, IEntityComponent::EFlags::Socket, IEntityComponent::EFlags::Attach, IEntityComponent::EFlags::UserAdded });
 	};
 };

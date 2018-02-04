@@ -14,7 +14,7 @@ CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterWeaponComponent);
 // Called on entity initialization
 void CWeapon::Initialize()
 {
-
+	m_fLastFireTime = m_fFireRate;
 }
 
 // Called for every event
@@ -40,7 +40,7 @@ void CWeapon::SetLocalPosition(Vec3 localPosition)
 // Fires the weapon
 void CWeapon::Fire()
 {
-	if (m_fLastFireTime >= 50.f)
+	if (m_fLastFireTime >= m_fFireRate)
 	{
 		SEntitySpawnParams sBulletSpawnParams;
 		sBulletSpawnParams.pClass = gEnv->pEntitySystem->GetClassRegistry()->GetDefaultClass();
@@ -57,7 +57,7 @@ void CWeapon::Fire()
 // Called on every frame
 void CWeapon::FrameUpdate()
 {
-	if(m_fLastFireTime < 50.f)
+	if(m_fLastFireTime < m_fFireRate)
 		++m_fLastFireTime;
 
 

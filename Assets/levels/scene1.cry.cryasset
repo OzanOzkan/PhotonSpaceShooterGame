@@ -3,24 +3,17 @@
   <File path="scene1/scene1.cry"/>
  </Files>
  <Dependencies>
-  <Path>%editor%/crydesigner_timeofday.xml</Path>
-  <Path>%editor%/default_time_of_day.xml</Path>
-  <Path>%editor%/leveltemplates.xml</Path>
-  <Path>%editor%/mapscreenshotsettings.xml</Path>
-  <Path>%editor%/mbttemplates.xml</Path>
-  <Path>%editor%/modellingpanel.xml</Path>
-  <Path>%editor%/objecttemplates.xml</Path>
-  <Path>%editor%/propertyenumerations.xml</Path>
-  <Path>%editor%/soundtemplates.xml</Path>
-  <Path>%editor%/toolbox.xml</Path>
-  <Path>%editor%/usertools.xml</Path>
   <Path>%engine%/config/defaultscripts/compressionpolicy.xml</Path>
+  <Path>%engine%/engineassets/codecoverage/hit.dds</Path>
+  <Path>%engine%/engineassets/codecoverage/pbar.dds</Path>
+  <Path>%engine%/engineassets/codecoverage/unexpected.dds</Path>
   <Path>%engine%/engineassets/icons/averagememoryusage.dds</Path>
   <Path>%engine%/engineassets/icons/highmemoryusage.dds</Path>
   <Path>%engine%/engineassets/icons/livepreview.dds</Path>
   <Path>%engine%/engineassets/icons/lowmemoryusage.dds</Path>
-  <Path>%engine%/engineassets/materials/water/ocean_default.mtl</Path>
   <Path>%engine%/engineassets/textures/grey.dds</Path>
-  <Path>objects/arc/arc170.cgf</Path>
+  <Path>libs/environmentpresets/scene1.xml</Path>
+  <Path>particles/sparks.pfx</Path>
+  <Path>particles/test.pfx</Path>
  </Dependencies>
 </AssetMetadata>

@@ -6,6 +6,7 @@
 #include <DefaultComponents/Geometry/StaticMeshComponent.h>
 #include <DefaultComponents/Physics/BoxPrimitiveComponent.h>
 #include <DefaultComponents/Physics/RigidBodyComponent.h>
+#include <DefaultComponents/Effects/ParticleComponent.h>
 
 class CBullet : public IEntityComponent
 {
@@ -34,6 +35,8 @@ private:
 	Cry::DefaultComponents::CStaticMeshComponent* m_pStaticMeshComponent = nullptr;
 	Cry::DefaultComponents::CBoxPrimitiveComponent* m_pBoxPrimitiveComponent = nullptr;
 	Cry::DefaultComponents::CRigidBodyComponent* m_pRigidBodyComponent = nullptr;
+	Cry::DefaultComponents::CParticleComponent* m_pSparkParticleComponent = nullptr;
 
 	float m_DestroyTimer;
+	SEntitySpawnParams m_sparkParticleSpawnParams;
 };
