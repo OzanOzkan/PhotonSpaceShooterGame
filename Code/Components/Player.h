@@ -12,6 +12,8 @@
 
 #include "Weapon.h"
 
+#include "Photon/PhotonComponent.h"
+
 ////////////////////////////////////////////////////////
 // Represents a player participating in gameplay
 ////////////////////////////////////////////////////////
@@ -63,6 +65,7 @@ protected:
 protected:
 	Cry::DefaultComponents::CCameraComponent* m_pCameraComponent = nullptr;
 	Cry::DefaultComponents::CInputComponent* m_pInputComponent = nullptr;
+	CPhotonComponent* m_pPhotonComponent = nullptr;
 
 	TInputFlags m_inputFlags;
 	Vec2 m_mouseDeltaRotation;

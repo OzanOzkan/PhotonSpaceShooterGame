@@ -48,6 +48,8 @@ void CPlayerComponent::Initialize()
 	m_pInputComponent->RegisterAction("player", "mouse_rotatepitch", [this](int activationMode, float value) { m_mouseDeltaRotation.y -= value; });
 	m_pInputComponent->BindAction("player", "mouse_rotatepitch", eAID_KeyboardMouse, EKeyId::eKI_MouseY);
 
+	m_pPhotonComponent = GetEntity()->GetOrCreateComponent<CPhotonComponent>();
+
 	Revive();
 
 	//cameraTM.SetTranslation(Vec3(0, -3.f, 1.f));

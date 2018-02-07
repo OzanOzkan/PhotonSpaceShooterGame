@@ -23,7 +23,6 @@
   <Path>%engine%/engineassets/objects/default.cgf</Path>
   <Path>%engine%/engineassets/texturemsg/defaultnouvs.dds</Path>
   <Path>%engine%/engineassets/texturemsg/defaultsolids.mtl</Path>
-  <Path>%engine%/engineassets/texturemsg/replaceme.dds</Path>
   <Path>%engine%/engineassets/textures/defaults/16_12.dds</Path>
   <Path>%engine%/engineassets/textures/defaults/16_34.dds</Path>
   <Path>%engine%/engineassets/textures/defaults/16_5.dds</Path>
@@ -35,15 +34,10 @@
   <Path>objects/arc/arc170.mtl</Path>
   <Path>objects/arc/arc170_txt_version_4_d.dds</Path>
   <Path>objects/arc/arc170_txt_version_4_d_normal.dds</Path>
-  <Path>objects/bullet/bullet.cgf</Path>
-  <Path>objects/bullet/bullet.mtl</Path>
   <Path>objects/test.cgf</Path>
   <Path>objects/testobjects/sf_corvette-f3.cgf</Path>
   <Path>objects/testobjects/sf_corvette-f3.mtl</Path>
   <Path>objects/testobjects/sf_corvette-f3_diffuse.dds</Path>
-  <Path>particles/sparks.pfx</Path>
   <Path>particles/stars.pfx</Path>
-  <Path>particles/test.pfx</Path>
-  <Path>scripts/ai/factions.xml</Path>
  </Dependencies>
 </AssetMetadata>

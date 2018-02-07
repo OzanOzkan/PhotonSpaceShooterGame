@@ -28,18 +28,18 @@ add_sources("Components_uber.cpp"
 		"Components/Player.cpp"
 		"Components/Ship.cpp"
 		"Components/ShipPropulsion.cpp"
+		"Components/TestEntity.cpp"
 		"Components/Weapon.cpp"
 		"Components/Bullet.h"
 		"Components/Player.h"
 		"Components/Ship.h"
 		"Components/ShipPropulsion.h"
-		"Components/Weapon.h"
-		"Components/TestEntity.cpp"
 		"Components/TestEntity.h"
+		"Components/Weapon.h"
 )
-add_sources("ComponentsPhoton_uber.cpp"
+add_sources("Photon_uber.cpp"
     PROJECTS Game
-    SOURCE_GROUP "Photon"
+    SOURCE_GROUP "Components\\\\Photon"
 		"Components/Photon/PhotonComponent.cpp"
 		"Components/Photon/PhotonComponent.h"
 )
@@ -84,12 +84,12 @@ endif()
 
 #BEGIN-CUSTOM
 # Make any custom changes here, modifications outside of the block will be discarded on regeneration.
-set(PHOTON_DIR "${PROJECT_DIR}/solutions/win64/libs/Photon/")
+set(PHOTON_DIR "F:/CRYENGINE\ Launcher/_PROJECTS/My\ Project/solutions/win64/libs/Photon")
 
 include_directories("${PHOTON_DIR}")
 link_directories("${PHOTON_DIR}/Common-cpp/lib/" "${PHOTON_DIR}/Photon-cpp/lib/" "${PHOTON_DIR}/LoadBalancing-cpp/lib/" "${PHOTON_DIR}/Chat-cpp/lib/")
-link_libraries("${PHOTON_DIR}/Common-cpp/lib/Common-cpp_debug_windows_md_x64.lib")
-link_libraries("${PHOTON_DIR}/Photon-cpp/lib/Photon-cpp_debug_windows_md_x64.lib")
-link_libraries("${PHOTON_DIR}/LoadBalancing-cpp/lib/LoadBalancing-cpp_debug_windows_md_x64.lib")
-link_libraries("${PHOTON_DIR}/Chat-cpp/lib/Chat-cpp_debug_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Common-cpp/lib/Common-cpp_vc15_debug_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Photon-cpp/lib/Photon-cpp_vc15_debug_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/LoadBalancing-cpp/lib/LoadBalancing-cpp_vc15_debug_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Chat-cpp/lib/Chat-cpp_vc15_debug_windows_md_x64.lib")
 #END-CUSTOM
