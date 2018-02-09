@@ -186,12 +186,12 @@ void CEnemyDestroyer::ShipEvent(SEntityEvent & event)
 void CEnemySmallShip::ShipInit()
 {
 	// Load the ship model
-	LoadModel("objects/testobjects/SF_Free-Fighter.cgf");
+	LoadModel("objects/arc/ARC170.cgf");
 
-	// TODO: Box collider size adjustment.
-	m_pBoxPrimitiveComponent->m_size = Vec3(75.f, 105.f, 10.f);
+	//// TODO: Box collider size adjustment.
+	//m_pBoxPrimitiveComponent->m_size = Vec3(75.f, 105.f, 10.f);
 
-	m_pBoxPrimitiveComponent->AddPrimitive();
+	//m_pBoxPrimitiveComponent->AddPrimitive();
 }
 
 void CEnemySmallShip::ShipEvent(SEntityEvent & event)

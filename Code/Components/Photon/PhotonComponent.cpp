@@ -1,6 +1,8 @@
 #include <StdAfx.h>
 #include "PhotonComponent.h"
 
+#include "../Player.h"
+
 static void RegisterPhotonComponent(Schematyc::IEnvRegistrar& registrar)
 {
 	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
@@ -26,10 +28,15 @@ CPhotonComponent::~CPhotonComponent()
 	m_LoadBalancingClient.disconnect();
 }
 
+//////////////////////////////////////////////////////////////
+// IEntityComponent											//
+//////////////////////////////////////////////////////////////
 void CPhotonComponent::Initialize()
 {
 	m_LoadBalancingClient.setDebugOutputLevel(DEBUG_RELEASE(ExitGames::Common::DebugLevel::INFO, ExitGames::Common::DebugLevel::WARNINGS));
-	m_LoadBalancingClient.connect();
+
+	ExitGames::Common::JString username(gEnv->pSystem->GetUserName());
+	m_LoadBalancingClient.connect(ExitGames::LoadBalancing::AuthenticationValues(), username);
 
 	if(!gEnv->pConsole->GetCVar("photon_send_message"))
 		REGISTER_CVAR(photon_send_message, 0, VF_CHEAT, "");
@@ -39,129 +46,154 @@ void CPhotonComponent::ProcessEvent(SEntityEvent & event)
 {
 	if (event.event == ENTITY_EVENT_UPDATE)
 	{
-		if (m_photonUpdateFrameCount >= 60)
-		{
+		//if (m_photonUpdateFrameCount >= 10)
+		//{
 			m_LoadBalancingClient.service();
 			m_photonUpdateFrameCount = 0;
-
 
 			if (gEnv->pConsole->GetCVar("photon_send_message")->GetFVal() == 1)
 			{
 				nByte eventCode = 1; // use distinct event codes to distinguish between different types of events (for example 'move', 'shoot', etc.)
 				ExitGames::Common::Hashtable evData; // organize your payload data in any way you like as long as it is supported by Photons serialization				
-				evData.put("x", GetEntity()->GetWorldPos().x);
-				evData.put("y", GetEntity()->GetWorldPos().y);
-				evData.put("z", GetEntity()->GetWorldPos().z);
 
-				CMessage* a = new CMessage(10);
-				char* payload = reinterpret_cast<char*>(&a);
+				IEntity* pShip = gEnv->pEntitySystem->FindEntityByName("PlayerShip");
+				CMessage* a = new CMessage(pShip->GetWorldTM());
 
-				bool sendReliable = false; // send something reliable if it has to arrive everywhere
-				m_LoadBalancingClient.opRaiseEvent(sendReliable, payload, eventCode);
+				nByte* payload = static_cast<nByte*>(static_cast<void*>(a));
+				auto size = sizeof(CMessage);
+
+				bool sendReliable = true; // send something reliable if it has to arrive everywhere
+				m_LoadBalancingClient.opRaiseEvent(sendReliable, payload, size * 2, eventCode);
+								
+				CryLogAlways("CPhotonComponent::ProcessEvent: %f - %f - %f", a->worldTM.GetTranslation().x, a->worldTM.GetTranslation().y, a->worldTM.GetTranslation().z);
 			}
 
-		}
+		//}
 		++m_photonUpdateFrameCount;
 	}
-	/*
-	if (event.event == ENTITY_EVENT_UPDATE)
-	{
-		// If Photon service is not connected, nothing to do.
-		if (!m_isPhotonConnected)
-		{
-			if (m_isPhotonConnected = m_LoadBalancingClient.connect(ExitGames::LoadBalancing::AuthenticationValues().setUserID(L"007"), L"ozan"))
-			{
-				CryLogAlways("[PhotonComponent]: Connected to Photon service. MS: %s", m_LoadBalancingClient.getMasterserverAddress().UTF8Representation().cstr());
-				//if(m_LoadBalancingClient.opJoinLobby(L"mylobby"))
-				//	CryLogAlways("[PhotonComponent]: Joined to lobby.");
-			}
-		}
-		else
-		{
-			if (m_photonUpdateFrameCount == 300)
-			{
-				m_LoadBalancingClient.service();
-				m_photonUpdateFrameCount = 0;
-			}
-			++m_photonUpdateFrameCount;
-
-			if (!m_isJoinedToRoom)
-			{
-				if (m_isJoinedToRoom = m_LoadBalancingClient.opJoinOrCreateRoom(L"testroom"))
-					CryLogAlways("[PhotonComponent]: Joined / created the room.");
-			}
-			else
-			{
-				ExitGames::LoadBalancing::MutableRoom& currentRoom = m_LoadBalancingClient.getCurrentlyJoinedRoom();
-				CryLogAlways("Room: %s - Players: %d - Max: %d", currentRoom.getName().UTF8Representation().cstr(), currentRoom.getPlayerCount(), currentRoom.getMaxPlayers());
-			}
-		}
-	}
-	*/
-	//if (!m_isRoomCreated)	
-	//{ 
-	//	if (m_isRoomCreated = m_LoadBalancingClient.opCreateRoom(L"testroom", ExitGames::LoadBalancing::RoomOptions().setMaxPlayers(5)))
-	//		CryLogAlways("[PhotonComponent]: A new game room created.");
-	//}
-
-	//if (!m_isJoinedToRoom)
-	//{
-	//	if(m_isJoinedToRoom = m_LoadBalancingClient.opJoinOrCreateRoom(L"testroom"))
-	//		CryLogAlways("[PhotonComponent]: Joined / created the room.");
-	//}
-	//else
-	//{
-	//	ExitGames::LoadBalancing::MutableRoom& currentRoom = m_LoadBalancingClient.getCurrentlyJoinedRoom();
-	//	CryLogAlways("Room: %s - Players: %d - Max: %d", currentRoom.getName().UTF8Representation().cstr(), currentRoom.getPlayerCount(), currentRoom.getMaxPlayers());
-	//}
-
-	//Matchmaking();
-
-	/*
-	if (m_isRoomCreated)
-	{
-		if (m_photonTestEventSentCount == 300)
-		{
-			nByte eventCode = 1; // use distinct event codes to distinguish between different types of events (for example 'move', 'shoot', etc.)
-			ExitGames::Common::Hashtable evData; // organize your payload data in any way you like as long as it is supported by Photons serialization
-			evData.put("testevent", 1);
-			bool sendReliable = false; // send something reliable if it has to arrive everywhere
-			if (m_LoadBalancingClient.opRaiseEvent(sendReliable, evData, eventCode))
-			{
-				CryLogAlways("[PhotonComponent]: opRaiseEvent: true.");
-			}
-
-			m_photonTestEventSentCount = 0;
-		}
-
-		++m_photonTestEventSentCount;
-	}
-	*/
 }
 
-void CPhotonComponent::Matchmaking()
+//////////////////////////////////////////////////////////////
+// ExitGames::LoadBalancing::Listener						//
+//////////////////////////////////////////////////////////////
+void CPhotonComponent::debugReturn(int debugLevel, const ExitGames::Common::JString & string)
 {
-	ExitGames::Common::JVector<ExitGames::LoadBalancing::Room*> roomList = m_LoadBalancingClient.getRoomList();
+	CryLogAlways("[PhotonComponent]: CPhotonListener::debugReturn: DebugLevel: %d, String: %s", debugLevel, string.UTF8Representation().cstr());
+}
 
-	CryLogAlways("Room count: %d", roomList.getSize());
+void CPhotonComponent::connectionErrorReturn(int errorCode)
+{
+	CryWarning(EValidatorModule::VALIDATOR_MODULE_NETWORK, EValidatorSeverity::VALIDATOR_ERROR,
+		"[PhotonComponent]: CPhotonListener::connectionErrorReturn: Error Code: %d", errorCode);
+}
 
-	// Join to an existing room
-	if (roomList.getSize() > 0)
+void CPhotonComponent::clientErrorReturn(int errorCode)
+{
+	CryWarning(EValidatorModule::VALIDATOR_MODULE_NETWORK, EValidatorSeverity::VALIDATOR_ERROR,
+		"[PhotonComponent]: CPhotonListener::connectionErrorReturn: Error Code: %d", errorCode);
+}
+
+void CPhotonComponent::warningReturn(int warningCode)
+{
+	CryWarning(EValidatorModule::VALIDATOR_MODULE_NETWORK, EValidatorSeverity::VALIDATOR_WARNING,
+		"[PhotonComponent]: CPhotonListener::warningReturn: Warning Code: %d", warningCode);
+}
+
+void CPhotonComponent::serverErrorReturn(int errorCode)
+{
+	CryWarning(EValidatorModule::VALIDATOR_MODULE_NETWORK, EValidatorSeverity::VALIDATOR_ERROR,
+		"[PhotonComponent]: CPhotonListener::serverErrorReturn: Warning Code: %d", errorCode);
+}
+
+void CPhotonComponent::joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& playernrs, const ExitGames::LoadBalancing::Player & player)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::joinRoomEventAction: PlayerNr: %d - Players: %d - PlayerName: %s", playerNr, playernrs.getSize(), player.getName().UTF8Representation().cstr());
+
+	// Test purposes
+	if (playerNr == 2)
 	{
-		CryLogAlways("First room: %s", roomList.getFirstElement()->getName().toString(true).cstr());
+		SEntitySpawnParams params;
+		params.sName = "otherPlayer";
+		params.vPosition = Vec3(10, 10, 10);
+		params.pClass = gEnv->pEntitySystem->GetClassRegistry()->GetDefaultClass();
 
-		/*
-		m_isRoomCreated = true;
+		pOtherTestEntity = gEnv->pEntitySystem->SpawnEntity(params);
+		pOtherTestEntity->GetOrCreateComponent<CEnemySmallShip>();
 
-		if (m_isJoinedToRoom = m_LoadBalancingClient.opJoinRoom(roomList.getFirstElement()->getName()))
-		{
-			CryLogAlways("[PhotonComponent]: Joined to the game room: %s", roomList.getFirstElement()->getName().toString(true).cstr());
-			return;
-		}
-		*/
+		CryLogAlways("[PhotonComponent]: CPhotonListener::joinRoomEventAction: Connected player entity created.");
 	}
+}
 
-	/*
-	CryWarning(EValidatorModule::VALIDATOR_MODULE_GAME, EValidatorSeverity::VALIDATOR_WARNING, "[PhotonComponent]: Could not joined to the game room.");
-	*/
+void CPhotonComponent::leaveRoomEventAction(int playerNr, bool isInactive)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::leaveRoomEventAction");
+}
+
+void CPhotonComponent::customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object & eventContent)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::customEventAction: BROADCAST RECEIVED! playerNr: %d, eventCode: %d, eventContent: %s", playerNr, eventCode, eventContent.toString(true).UTF8Representation().cstr());
+
+	// Test purposes
+	if (playerNr == 2)
+	{
+		nByte* content = ExitGames::Common::ValueObject<nByte*>(eventContent).getDataCopy();
+		CMessage* message = static_cast<CMessage*>(static_cast<void*>(content));
+		CryLogAlways("Message: X: %f - Y: %f - Z: %f", message->worldTM.GetTranslation().x, message->worldTM.GetTranslation().y, message->worldTM.GetTranslation().z);
+
+		Matrix34 newPos = message->worldTM;
+		Vec3 pos = pOtherTestEntity->GetPos();
+		Interpolate(pos, newPos.GetTranslation(), 5.f, gEnv->pTimer->GetFrameTime());
+		newPos.SetTranslation(pos);
+		pOtherTestEntity->SetWorldTM(newPos);
+
+		//CryLogAlways("Other entity: %d - X: %f - Y: %f - Z: %f", pOtherTestEntity->GetId(), pOtherTestEntity->GetPos().x, pOtherTestEntity->GetPos().y, pOtherTestEntity->GetPos().z);
+	}
+}
+
+void CPhotonComponent::connectReturn(int errorCode, const ExitGames::Common::JString & errorString, const ExitGames::Common::JString & cluster)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::connectReturn: ErrorCode: %d, ErrorString: %s, Cluster: %s", errorCode, errorString.UTF8Representation().cstr(), cluster.UTF8Representation().cstr());
+	m_isPhotonConnected = true;
+
+	m_LoadBalancingClient.opJoinOrCreateRoom(L"myroom");
+}
+
+void CPhotonComponent::disconnectReturn(void)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::disconnectReturn");
+}
+
+void CPhotonComponent::createRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable & roomProperties, const ExitGames::Common::Hashtable & playerProperties, int errorCode, const ExitGames::Common::JString & errorString)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::createRoomReturn");
+}
+
+void CPhotonComponent::joinOrCreateRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable & roomProperties, const ExitGames::Common::Hashtable & playerProperties, int errorCode, const ExitGames::Common::JString & errorString)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::createRoomReturn");
+}
+
+void CPhotonComponent::joinRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable & roomProperties, const ExitGames::Common::Hashtable & playerProperties, int errorCode, const ExitGames::Common::JString & errorString)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::joinRoomReturn");
+}
+
+void CPhotonComponent::joinRandomRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable & roomProperties, const ExitGames::Common::Hashtable & playerProperties, int errorCode, const ExitGames::Common::JString & errorString)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::joinRandomRoomReturn");
+}
+
+void CPhotonComponent::leaveRoomReturn(int errorCode, const ExitGames::Common::JString & errorString)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::leaveRoomReturn");
+}
+
+void CPhotonComponent::joinLobbyReturn(void)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::joinLobbyReturn");
+}
+
+void CPhotonComponent::leaveLobbyReturn(void)
+{
+	CryLogAlways("[PhotonComponent]: CPhotonListener::leaveLobbyReturn");
 }

@@ -64,6 +64,7 @@ void CPlayerComponent::SpawnShip()
 {
 	// Spawn the ship
 	SEntitySpawnParams shipSpawnParams;
+	shipSpawnParams.sName = "PlayerShip";
 	shipSpawnParams.pClass = gEnv->pEntitySystem->GetClassRegistry()->GetDefaultClass();
 	shipSpawnParams.vPosition = Vec3(GetEntity()->GetPos().x, GetEntity()->GetPos().y, GetEntity()->GetPos().z);
 	shipSpawnParams.qRotation = IDENTITY;

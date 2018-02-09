@@ -58,6 +58,7 @@ public:
 
 	void Revive();
 	void SpawnShip();
+	CPlayerShip* getShip() { return m_pShip; }
 
 protected:
 	void HandleInputFlagChange(TInputFlags flags, int activationMode, EInputFlagType type = EInputFlagType::Hold);
