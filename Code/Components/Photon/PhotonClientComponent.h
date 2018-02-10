@@ -2,13 +2,17 @@
 
 #include <CrySchematyc/CoreAPI.h>
 #include <CryEntitySystem/IEntityComponent.h>
+#include <CryGame/GameUtils.h>
+#include <DefaultComponents/Debug/DebugDrawComponent.h>
+
+#include "IPhotonCommon.h"
+#include "PhotonEntityComponent.h"
 
 #include "../Ship.h"
 
-#include <CryGame/GameUtils.h>
 
 // Necessary undefs for Photon. 
-// Definitions overlapping with CRYENGINE.
+// Definitions overlaps with CRYENGINE.
 #undef alloc
 #undef malloc
 #undef free
@@ -20,21 +24,14 @@
 #include "LoadBalancing-cpp/inc/Listener.h"
 #include "LoadBalancing-cpp/inc/Client.h"
 
-class CMessage
-{
-public:
-	CMessage(Matrix34 tm) { worldTM = tm; }
-
-	Matrix34 worldTM;
-};
-
-class CPhotonComponent 
+class CPhotonClientComponent 
 	: public IEntityComponent
 	, public ExitGames::LoadBalancing::Listener
+	, public IPhotonCommon
 {
 public:
-	CPhotonComponent();
-	virtual ~CPhotonComponent();
+	CPhotonClientComponent();
+	virtual ~CPhotonClientComponent();
 
 	//////////////////////////////////////////////////////////////
 	// IEntityComponent											//
@@ -44,11 +41,11 @@ public:
 	virtual void ProcessEvent(SEntityEvent& event) override;
 
 
-	static void ReflectType(Schematyc::CTypeDesc<CPhotonComponent>& desc)
+	static void ReflectType(Schematyc::CTypeDesc<CPhotonClientComponent>& desc)
 	{
 		desc.SetGUID("{C687992A-AB4D-4F98-B134-5049C31693B5}"_cry_guid);
-		desc.SetEditorCategory("MyComponents");
-		desc.SetLabel("PhotonComponent");
+		desc.SetEditorCategory("Photon Engine");
+		desc.SetLabel("Photon Client Component");
 		desc.SetComponentFlags({ IEntityComponent::EFlags::Transform, IEntityComponent::EFlags::Socket, IEntityComponent::EFlags::Attach, IEntityComponent::EFlags::UserAdded });
 	};
 
@@ -73,16 +70,18 @@ public:
 	virtual void joinLobbyReturn(void) override;
 	virtual void leaveLobbyReturn(void) override;
 
+	void CreateRemotePlayer(int playerId);
+	void UpdateInfoTexts();
+
 private:
-	ExitGames::LoadBalancing::Client m_LoadBalancingClient;
-
-	int m_photonUpdateFrameCount;
+	int m_localPlayerId;
 	bool m_isPhotonConnected;
-	bool m_isRoomCreated;
-	bool m_isJoinedToRoom;
-	int m_photonTestEventSentCount = 60;
+	ExitGames::LoadBalancing::Client m_LoadBalancingClient;
+	std::map<int, CPhotonEntityComponent*> m_localNetworkedEntities;
+	std::map<int, IEntity*> m_remoteNetworkedEntities;
+	bool m_firstInit = true;
+	bool m_firstRoomJoin = true;
+	int m_playerCount;
 
-	float photon_send_message;
-
-	IEntity* pOtherTestEntity = nullptr;
+	Cry::DefaultComponents::CDebugDrawComponent* m_pDebugDrawComponent = nullptr;
 };

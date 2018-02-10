@@ -65,6 +65,9 @@ void CShip::Fire()
 	for (CWeapon* currentWeapon : m_vWeapons)
 	{
 		currentWeapon->Fire();
+
+		if(m_pPhotonEntityComponent)
+			m_pPhotonEntityComponent->m_pPhotonSerializedData->isFiring = true;
 	}
 }
 
@@ -89,6 +92,27 @@ void CShip::LoadModel(const char* modelPath)
 	m_pStaticMeshComponent->LoadFromDisk();
 	m_pStaticMeshComponent->ResetObject();
 	// ~Load the ship model
+}
+
+void CShip::DrawPlayerName(const char* playerName)
+{
+	if (m_pDebugDrawComponent)
+	{
+		//Matrix34 localTM = m_pDebugDrawComponent->GetTransformMatrix();
+		//Vec3 localPos = localTM.GetTranslation();
+		//localPos.z += 2.f;
+		//localTM.SetTranslation(localPos);
+		//m_pDebugDrawComponent->SetTransformMatrix(localTM);
+
+		m_pDebugDrawComponent->SetPersistentText(playerName);
+		m_pDebugDrawComponent->SetPersistentTextColor(Vec3(1, 0, 0));
+		m_pDebugDrawComponent->SetPersistentTextViewDistance(255);
+		m_pDebugDrawComponent->EnablePersistentText(true);
+
+		SEntityEvent event;
+		event.event = ENTITY_EVENT_COMPONENT_PROPERTY_CHANGED;
+		m_pDebugDrawComponent->SendEvent(event);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -121,6 +145,8 @@ void CPlayerShip::ShipInit()
 	pWeapon2->SetLocalPosition(Vec3(-17.50001, 17, -2.2));
 	m_vWeapons.push_back(pWeapon2);
 	// ~Create weapons.
+
+	m_pPhotonEntityComponent = GetEntity()->GetOrCreateComponent<CPhotonEntityComponent>();
 }
 
 void CPlayerShip::ShipEvent(SEntityEvent & event)
@@ -192,6 +218,8 @@ void CEnemySmallShip::ShipInit()
 	//m_pBoxPrimitiveComponent->m_size = Vec3(75.f, 105.f, 10.f);
 
 	//m_pBoxPrimitiveComponent->AddPrimitive();
+
+	m_pDebugDrawComponent = GetEntity()->GetOrCreateComponent<Cry::DefaultComponents::CDebugDrawComponent>();
 }
 
 void CEnemySmallShip::ShipEvent(SEntityEvent & event)

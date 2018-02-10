@@ -40,8 +40,11 @@ add_sources("Components_uber.cpp"
 add_sources("Photon_uber.cpp"
     PROJECTS Game
     SOURCE_GROUP "Components\\\\Photon"
-		"Components/Photon/PhotonComponent.cpp"
-		"Components/Photon/PhotonComponent.h"
+		"Components/Photon/IPhotonCommon.h"
+		"Components/Photon/PhotonClientComponent.cpp"
+		"Components/Photon/PhotonClientComponent.h"
+		"Components/Photon/PhotonEntityComponent.cpp"
+		"Components/Photon/PhotonEntityComponent.h"
 )
 
 end_sources()
@@ -88,8 +91,8 @@ set(PHOTON_DIR "F:/CRYENGINE\ Launcher/_PROJECTS/My\ Project/solutions/win64/lib
 
 include_directories("${PHOTON_DIR}")
 link_directories("${PHOTON_DIR}/Common-cpp/lib/" "${PHOTON_DIR}/Photon-cpp/lib/" "${PHOTON_DIR}/LoadBalancing-cpp/lib/" "${PHOTON_DIR}/Chat-cpp/lib/")
-target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Common-cpp/lib/Common-cpp_vc15_debug_windows_md_x64.lib")
-target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Photon-cpp/lib/Photon-cpp_vc15_debug_windows_md_x64.lib")
-target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/LoadBalancing-cpp/lib/LoadBalancing-cpp_vc15_debug_windows_md_x64.lib")
-target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Chat-cpp/lib/Chat-cpp_vc15_debug_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Common-cpp/lib/Common-cpp_vc15_release_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Photon-cpp/lib/Photon-cpp_vc15_release_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/LoadBalancing-cpp/lib/LoadBalancing-cpp_vc15_release_windows_md_x64.lib")
+target_link_libraries(${THIS_PROJECT} PUBLIC "${PHOTON_DIR}/Chat-cpp/lib/Chat-cpp_vc15_release_windows_md_x64.lib")
 #END-CUSTOM

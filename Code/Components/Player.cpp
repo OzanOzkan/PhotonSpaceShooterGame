@@ -48,7 +48,7 @@ void CPlayerComponent::Initialize()
 	m_pInputComponent->RegisterAction("player", "mouse_rotatepitch", [this](int activationMode, float value) { m_mouseDeltaRotation.y -= value; });
 	m_pInputComponent->BindAction("player", "mouse_rotatepitch", eAID_KeyboardMouse, EKeyId::eKI_MouseY);
 
-	m_pPhotonComponent = GetEntity()->GetOrCreateComponent<CPhotonComponent>();
+	m_pPhotonComponent = GetEntity()->GetOrCreateComponent<CPhotonClientComponent>();
 
 	Revive();
 

@@ -6,6 +6,7 @@
 #include <DefaultComponents/Physics/BoxPrimitiveComponent.h>
 #include <DefaultComponents/Geometry/StaticMeshComponent.h>
 #include <DefaultComponents/Effects/ParticleComponent.h>
+#include <DefaultComponents/Debug/DebugDrawComponent.h>
 
 #include <vector>
 #include <map>
@@ -13,6 +14,7 @@
 #include "ShipPropulsion.h"
 #include "Weapon.h"
 #include "Bullet.h"
+#include "Photon/PhotonEntityComponent.h"
 
 //////////////////////////////////////////////////////////////////////////////////
 //	CShip																		//
@@ -43,6 +45,7 @@ public:
 	void setVelocity(Vec3 velocity);
 	Vec3 getVelocity();
 	Vec3 getCameraOffset() { return m_cameraOffset; }
+	void DrawPlayerName(const char* playerName);
 
 	static void ReflectType(Schematyc::CTypeDesc<CShip>& desc)
 	{
@@ -63,6 +66,8 @@ protected:
 	Cry::DefaultComponents::CRigidBodyComponent* m_pRigidBodyComponent = nullptr;
 	Cry::DefaultComponents::CBoxPrimitiveComponent* m_pBoxPrimitiveComponent = nullptr;
 	Cry::DefaultComponents::CParticleComponent* m_pParticleComponent = nullptr;
+	Cry::DefaultComponents::CDebugDrawComponent* m_pDebugDrawComponent = nullptr;
+	CPhotonEntityComponent * m_pPhotonEntityComponent = nullptr;
 };
 
 //////////////////////////////////////////////////////////////////////////////////
