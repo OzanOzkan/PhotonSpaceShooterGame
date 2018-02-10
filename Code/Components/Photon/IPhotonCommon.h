@@ -19,7 +19,6 @@ public:
 	public:
 		SPhotonSerializedData() {};
 
-		const char* playerName;
 		Matrix34 worldTM;
 		bool isFiring;
 	};

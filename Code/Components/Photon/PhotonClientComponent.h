@@ -70,7 +70,7 @@ public:
 	virtual void joinLobbyReturn(void) override;
 	virtual void leaveLobbyReturn(void) override;
 
-	void CreateRemotePlayer(int playerId);
+	void CreateRemotePlayer(int playerId, const char* playerName);
 	void UpdateInfoTexts();
 
 private:

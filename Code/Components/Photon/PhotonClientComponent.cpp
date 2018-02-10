@@ -16,7 +16,7 @@ CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterPhotonClientComponent);
 CPhotonClientComponent::CPhotonClientComponent()
 	: m_localPlayerId(0)
 	, m_isPhotonConnected(false)
-	, m_LoadBalancingClient(*this, L"55750f6f-b994-4c06-b2a6-1c5f21f2a89c", L"1.0", ExitGames::Photon::ConnectionProtocol::DEFAULT, true, ExitGames::LoadBalancing::RegionSelectionMode::BEST)
+	, m_LoadBalancingClient(*this, L"55750f6f-b994-4c06-b2a6-1c5f21f2a89c", L"1.0")
 	, m_firstInit(true)
 	, m_firstRoomJoin(true)
 	, m_playerCount(0)
@@ -41,6 +41,7 @@ void CPhotonClientComponent::Initialize()
 
 	// Photon connection to the cloud
 	ExitGames::Common::JString username(gEnv->pSystem->GetUserName());
+	m_LoadBalancingClient.selectRegion("eu");
 	m_LoadBalancingClient.connect(ExitGames::LoadBalancing::AuthenticationValues(), username);
 }
 
@@ -73,7 +74,6 @@ void CPhotonClientComponent::ProcessEvent(SEntityEvent & event)
 		for (auto currentEntity : m_localNetworkedEntities)
 		{
 			SPhotonSerializedData* serializedData = currentEntity.second->GetSerializedData();
-			serializedData->playerName = gEnv->pSystem->GetUserName();
 
 			nByte* payload = reinterpret_cast<nByte*>(serializedData);
 			m_LoadBalancingClient.opRaiseEvent(true, payload, sizeof(SPhotonSerializedData), 1);
@@ -102,7 +102,7 @@ void CPhotonClientComponent::UpdateInfoTexts()
 	m_pDebugDrawComponent->DrawText(text, 1, 1, 1.2f, Vec3(1, 1, 1), 0.06f);
 }
 
-void CPhotonClientComponent::CreateRemotePlayer(int playerId)
+void CPhotonClientComponent::CreateRemotePlayer(int playerId, const char* playerName)
 {
 	SEntitySpawnParams params;
 	params.sName = "otherPlayer";
@@ -111,7 +111,7 @@ void CPhotonClientComponent::CreateRemotePlayer(int playerId)
 
 	if (IEntity* pEntity = gEnv->pEntitySystem->SpawnEntity(params))
 	{
-		pEntity->GetOrCreateComponent<CEnemySmallShip>();
+		pEntity->GetOrCreateComponent<CEnemySmallShip>()->DrawPlayerName(playerName);
 		m_remoteNetworkedEntities[playerId] = pEntity;
 
 		CryLogAlways("[PhotonClientComponent]: CPhotonClientComponent::joinRoomEventAction: Connected player entity created.");
@@ -166,7 +166,7 @@ void CPhotonClientComponent::joinRoomEventAction(int playerNr, const ExitGames::
 	{
 		for (int i = 0; i < playernrs.getSize(); ++i)
 		{
-			CreateRemotePlayer(playernrs[i]);
+			CreateRemotePlayer(playernrs[i], player.getName().UTF8Representation().cstr());
 		}
 
 		m_firstRoomJoin = false;
@@ -175,7 +175,7 @@ void CPhotonClientComponent::joinRoomEventAction(int playerNr, const ExitGames::
 	// Create new connected players in local client.
 	if (playerNr != m_localPlayerId)
 	{
-		CreateRemotePlayer(playerNr);
+		CreateRemotePlayer(playerNr, player.getName().UTF8Representation().cstr());
 	}
 }
 
@@ -199,10 +199,6 @@ void CPhotonClientComponent::customEventAction(int playerNr, nByte eventCode, co
 
 		if (IEntity* pCurrentEntity = m_remoteNetworkedEntities[playerNr])
 		{
-			// Player Name
-			//CryLogAlways(std::move(data->playerName));
-			pCurrentEntity->GetComponent<CEnemySmallShip>()->DrawPlayerName(data->playerName);
-
 			// Player Position
 			Matrix34 newPos = data->worldTM;
 			Vec3 pos = pCurrentEntity->GetPos();
