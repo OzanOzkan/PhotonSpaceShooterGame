@@ -159,14 +159,19 @@ void CPhotonClientComponent::joinRoomEventAction(int playerNr, const ExitGames::
 {
 	CryLogAlways("[PhotonClientComponent]: CPhotonClientComponent::joinRoomEventAction: PlayerNr: %d - Players: %d - PlayerName: %s", playerNr, playernrs.getSize(), player.getName().UTF8Representation().cstr());
 
-	m_playerCount = playernrs.getSize();
+	ExitGames::LoadBalancing::MutableRoom currentRoom = m_LoadBalancingClient.getCurrentlyJoinedRoom();
+	m_playerCount = currentRoom.getPlayerCount();
 
 	// Create already connected players in local client.
 	if (m_firstRoomJoin)
 	{
 		for (int i = 0; i < playernrs.getSize(); ++i)
 		{
-			CreateRemotePlayer(playernrs[i], player.getName().UTF8Representation().cstr());
+			if (playernrs[i] == m_localPlayerId)
+				continue;
+
+			const ExitGames::LoadBalancing::Player* player = currentRoom.getPlayerForNumber(playernrs[i]);
+			CreateRemotePlayer(playernrs[i], player->getName().UTF8Representation().cstr());
 		}
 
 		m_firstRoomJoin = false;
